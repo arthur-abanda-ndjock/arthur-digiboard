@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digiboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: digiboard
+  template:
+    metadata:
+      labels:
+        app: digiboard
+    spec:
+      containers:
+      - name: digiboard
+        image: {{ .Values.image }}       
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
