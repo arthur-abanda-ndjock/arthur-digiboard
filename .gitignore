@@ -8,6 +8,8 @@ target/
 # Node.js
 **/node_modules/**
 *package-lock.json*
+**/node/**
+
 # Next.js
 **/.next/**
 **/out/**
