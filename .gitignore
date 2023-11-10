@@ -7,7 +7,7 @@ target/
 ##### NextJs #####
 # Node.js
 **/node_modules/**
-*package-lock.json*
+**package-lock.json**
 **/node/**
 
 # Next.js
