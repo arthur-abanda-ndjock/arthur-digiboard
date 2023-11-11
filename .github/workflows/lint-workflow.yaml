@@ -1,0 +1,27 @@
+name: lint-workflow
+on:
+  push:
+    branches:
+      - feature/build-ci-pipeline
+jobs:
+    lint:
+        runs-on: ubuntu-latest 
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v2
+    
+          - name: Set up JDK
+            uses: actions/setup-java@v2
+            with:
+              distribution: 'adopt'
+              java-version: '17'
+    
+          - name: Run Java checkstyle
+            run: mvn -f ./arthur-digiboard-backend/pom.xml validate    
+    
+          - name: Upload Checkstyle Results
+            if: always()
+            uses: actions/upload-artifact@v2
+            with:
+              name: checkstyle-results
+              path: target/checkstyle-result.xml
