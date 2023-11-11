@@ -77,7 +77,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<configLocation>./lint/checkstyle.xml</configLocation>
+					<configLocation>${basedir}/lint/checkstyle.xml</configLocation>
 				</configuration>
 			</plugin>
 		</plugins>
