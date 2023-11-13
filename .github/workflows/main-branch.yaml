@@ -67,4 +67,4 @@ jobs:
 
       - name: Deploy artifact on aws eks using helm chart
         run: |
-          helm install digiboard-chart ./digiboard-chart 
+          helm upgrade --install --wait --timeout 150 digiboard-chart ./digiboard-chart 
