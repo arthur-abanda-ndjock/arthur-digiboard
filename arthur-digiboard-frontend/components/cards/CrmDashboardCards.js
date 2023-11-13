@@ -36,7 +36,7 @@ const CrmDashboardCards = () => {
                     </div>
                 </div>
                 <div className="progress-box">
-                    <p className="d-flex justify-content-between mb-1">Active Client <small>+116.24%</small></p>
+                    <p className="d-flex justify-content-between mb-1">Active Client (lalalalal) <small>+116.24%</small></p>
                     <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                         <div className="progress-bar bg-success" style={{width:'75%'}}></div>
                     </div>
