@@ -22,6 +22,6 @@ jobs:
         with:
           path: "**/node_modules"
           #path: "**/node_modules **/next/cache"
-          key: ${{ runner.os }}-build-cache-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.os }}-build-cache-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: build artifact
         run: mvn -B package
