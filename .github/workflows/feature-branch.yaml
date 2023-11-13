@@ -20,7 +20,6 @@ jobs:
         uses: actions/cache@v3.0.2
         id: node_modules 
         with:
-          #path: "**/node_modules"
           path: "**/node_modules **/next/cache"
           key: ${{ runner.os }}-build-cache-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: build artifact
