@@ -25,9 +25,6 @@ public class MyNumberGeneratorController {
 		double admin = getRandomDouble(10, 30);
 
 		double expenses = getRandomDouble(60000, 100000);
-
-		System.out.println("hi hihih");
-
 		CrmDashboardCard response = new CrmDashboardCard(clients, admin, expenses);
 		ResponseEntity<CrmDashboardCard> a = new ResponseEntity<CrmDashboardCard>(response,
 				HttpStatusCode.valueOf(200));
