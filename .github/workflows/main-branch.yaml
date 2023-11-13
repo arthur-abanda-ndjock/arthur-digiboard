@@ -24,7 +24,7 @@ jobs:
         id: node_modules 
         with:
           path: "**/node_modules **/next/cache"
-          key: ${{ runner.os }}-build-cache-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-cache-${{ vars.GITHUB_REF_NAME }}-${{ hashFiles('**/package-lock.json') }}
 
       - name: build artifact
         run: mvn -B package
@@ -65,6 +65,6 @@ jobs:
         run: aws eks update-kubeconfig --name tf-cluster
         
 
-      - name: Deploy java helm chart to EKS
+      - name: Deploy artifact on aws eks using helm chart
         run: |
-          helm install java ./java-chart
+          helm install digiboard-chart ./digiboard-chart 
