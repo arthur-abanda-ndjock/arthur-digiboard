@@ -60,9 +60,9 @@ jobs:
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
-#      - name: Update kube config
-#        run: aws eks update-kubeconfig --name arhur-eks-cfg
+      - name: Update kube config
+        run: aws eks update-kubeconfig --name arn:aws:eks:us-east-2:755840619199:cluster/tf-cluster
 
-#      - name: Deploy java helm chart to EKS
-#        run: |
-#          helm install java ./java-chart
+      - name: Deploy java helm chart to EKS
+        run: |
+          helm install java ./java-chart
