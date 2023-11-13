@@ -24,7 +24,7 @@ jobs:
         id: node_modules 
         with:
           path: "**/node_modules **/next/cache"
-          key: ${{ runner.os }}-build-cache-${{ vars.GITHUB_REF_NAME }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-cache-${{ env.GITHUB_REF_NAME }}-${{ hashFiles('**/package-lock.json') }}
 
       - name: build artifact
         run: mvn -B package
@@ -67,4 +67,4 @@ jobs:
 
       - name: Deploy artifact on aws eks using helm chart
         run: |
-          helm upgrade --install --wait --timeout 150 digiboard-chart ./digiboard-chart 
+          helm upgrade --install --wait --timeout 150s digiboard-chart ./digiboard-chart 
