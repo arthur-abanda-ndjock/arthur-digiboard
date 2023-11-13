@@ -20,11 +20,10 @@ jobs:
 
       - name: build artifact
         run: mvn -B package
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build_branch
-    steps:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     needs: build_branch
+#     steps:
       - name: Install kubectl
         uses: azure/setup-kubectl@v2.0
         with:
@@ -40,7 +39,9 @@ jobs:
 
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          mask-password: 'false'
 
       - name: Build, tag, and push docker image to Amazon ECR
         env:
