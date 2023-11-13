@@ -3,11 +3,9 @@ name: Feature branch
 on:
   push:
     branches: ["feature**"]
-
 jobs:
   build_branch:
     runs-on: ubuntu-latest
-
     steps:
       - name: checkout on the workdir
         uses: actions/checkout@v3
@@ -18,5 +16,11 @@ jobs:
           java-version: "17"
           distribution: "temurin"
           cache: maven
+      - name: Get node_modules cache
+        uses: actions/cache@v3.0.2
+        id: node_modules 
+        with:
+          path: "**/node_modules **/next/cache"
+          key: ${{ runner.os }}-build-cache-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: build artifact
         run: mvn -B package
