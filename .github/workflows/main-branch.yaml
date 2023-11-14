@@ -63,14 +63,18 @@ jobs:
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
       - name: Update kube config
-        run: aws eks update-kubeconfig --name tf-cluster
+        run: aws eks update-kubeconfig --name tf-cluster --region  us-east-2
 
       - name: Get eks token
         run: aws eks get-token --cluster-name tf-cluster
 
+      - name: list home dir
+        run: ls -lsaR ~/
+
+
       - name: Deploy artifact on aws eks using helm chart
         run: |
-          helm upgrade --install --wait --timeout 150s  digiboard-chart ./digiboard-chart 
+          helm upgrade --install --wait --timeout 150s  digiboard-chart ./digiboard-chart --kubeconfig ~/.kube/config
         
       # - name: 'Deploy'
       #   uses: 'vimeda/helm@v1.7.0'
