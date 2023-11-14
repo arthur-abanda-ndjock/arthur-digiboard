@@ -63,10 +63,24 @@ jobs:
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
       - name: Update kube config
-        # run: aws eks update-kubeconfig --name "arn:aws:eks:us-east-2:755840619199:cluster/tf-cluster"
         run: aws eks update-kubeconfig --name tf-cluster
         
 
       - name: Deploy artifact on aws eks using helm chart
         run: |
           helm upgrade --install --wait --timeout 150s  digiboard-chart ./digiboard-chart 
+
+      - name: 'Deploy'
+        uses: 'deliverybot/helm@master'
+        with:
+          token: '${{ github.token }}'
+          chart: './digiboard-chart '
+          namespace: default
+          release: digiboard-chart
+          value-files: './config/production.yml'
+          # timeout: 150s
+        env:
+          KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
+      # - name: Deploy artifact on aws eks using helm chart
+      #   run: |
+      #     helm upgrade --install --wait --timeout 150s  digiboard-chart ./digiboard-chart 
