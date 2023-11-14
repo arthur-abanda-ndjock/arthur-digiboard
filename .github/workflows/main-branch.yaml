@@ -20,8 +20,6 @@ jobs:
           java-version: "17"
           distribution: "temurin"
           cache: maven
-
-
       - name: Get node_modules cache
         uses: actions/cache@v3.0.2
         id: node_modules 
@@ -49,7 +47,7 @@ jobs:
           # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
 
-      - name: Login to Amazon ECR
+      - name: Login to Amazon ECR service
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
         with:
