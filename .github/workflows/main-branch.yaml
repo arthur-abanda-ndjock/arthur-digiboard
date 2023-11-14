@@ -3,8 +3,11 @@ name: Main branch workflow
 on:
   pull_request: # only pull request
     branches: [ "main" ]
-jobs:
 
+permissions:
+  id-token: write # This is required for requesting the JWT
+
+jobs:
   build_branch:
     runs-on: ubuntu-latest
     steps:
@@ -41,8 +44,9 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: arn:aws:iam::755840619199:role/github-to-aws-oicd
+          # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
 
       - name: Login to Amazon ECR
@@ -67,4 +71,4 @@ jobs:
 
       - name: Deploy artifact on aws eks using helm chart
         run: |
-          helm upgrade --install --wait --timeout 150s digiboard-chart ./digiboard-chart 
+          helm upgrade --install --wait --timeout 150s  digiboard-chart ./digiboard-chart 
