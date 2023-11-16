@@ -58,6 +58,9 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: status.podIP
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+
           ports:
             - containerPort: 5432
           livenessProbe:
@@ -81,3 +84,4 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/postgresql/data  
               name: data-volume
+              subPath: postgres
