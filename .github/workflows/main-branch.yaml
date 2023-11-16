@@ -64,8 +64,9 @@ jobs:
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
-      - name: Update kube config
-        run: aws eks update-kubeconfig --name tf-cluster --region  us-east-2
+      - name: Update kube config to set name & region & role
+        run: aws eks update-kubeconfig --name tf-cluster --region us-east-2 --role-arn arn:aws:iam::755840619199:role/tf-cluster-cluster-20231116073441746600000003
+
 
       - name: Get eks token
         run: aws eks get-token --cluster-name tf-cluster
