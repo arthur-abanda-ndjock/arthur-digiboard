@@ -72,21 +72,10 @@ jobs:
         run: aws eks get-token --cluster-name tf-cluster
 
 
-      - name: Deploy artifact on aws eks using helm chart
+      - name: Deploy postgres db
         run: |
-          helm upgrade --install --wait --timeout 150s  digiboard-chart ./digiboard-chart --kubeconfig ~/.kube/config
-        
-      # - name: 'Deploy'
-      #   uses: 'vimeda/helm@v1.7.0'
-      #   with:
-      #     token: '${{ github.token }}'
-      #     chart: './digiboard-chart '
-      #     namespace: default
-      #     release: digiboard-chart
-      #     value-files: './config/production.yml'
-      #     # timeout: 150s
-      #   env:
-      #     KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
+          helm upgrade --install --wait --timeout 150s  db-postgres-chart ./helm-charts/db-postgres-chart
+
       # - name: Deploy artifact on aws eks using helm chart
       #   run: |
-      #     helm upgrade --install --wait --timeout 150s  digiboard-chart ./digiboard-chart 
+      #     helm upgrade --install --wait --timeout 150s  digiboard-chart ./helm-charts/digiboard-chart --kubeconfig ~/.kube/config
