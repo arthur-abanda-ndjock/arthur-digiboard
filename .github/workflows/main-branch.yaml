@@ -74,7 +74,7 @@ jobs:
 
       - name: Deploy postgres db
         run: |
-          helm upgrade --install --wait --timeout 150s --create-namespace dev  db-postgres-chart ./helm-charts/db-postgres-chart
+          helm upgrade --install --wait --timeout 150s  db-postgres-chart ./helm-charts/db-postgres-chart --create-namespace dev
 
       # - name: Deploy artifact on aws eks using helm chart
       #   run: |
