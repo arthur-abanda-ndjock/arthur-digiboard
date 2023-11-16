@@ -4,6 +4,9 @@ target/
 **/src/main/**/target/
 **/src/test/**/target/
 
+
+
+
 ##### NextJs #####
 # Node.js
 **/node_modules/**
@@ -60,3 +63,5 @@ build/
 ### VS Code ###
 .vscode/
 
+## roadmap ##
+**/roadmap/

@@ -3,7 +3,9 @@ name: Main branch workflow
 on:
   pull_request: # only pull request
     branches: [ "main" ]
+  workflow_dispatch:
 
+    
 permissions:
   id-token: write # This is required for requesting the JWT
 
