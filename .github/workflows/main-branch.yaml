@@ -44,9 +44,9 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          # role-to-assume: arn:aws:iam::755840619199:role/github-to-aws-oicd
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: arn:aws:iam::755840619199:role/github-to-aws-oicd
+          # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
 
       - name: Login to Amazon ECR service
@@ -71,10 +71,14 @@ jobs:
       - name: Get eks token
         run: aws eks get-token --cluster-name tf-cluster
 
-
-      - name: Deploy postgres db
+      - name: Deploy app using helm
         run: |
-          helm upgrade --install --wait --timeout 5m0s  db-postgres-chart ./helm-charts/db-postgres-chart
+          helm upgrade --install --wait --timeout 5m0s digiboard-chart ./helm-charts/digiboard-chart
+
+
+      # - name: Deploy postgress db
+      #   run: |
+      #     helm upgrade --install --wait --timeout 5m0s  db-postgres-chart ./helm-charts/db-postgres-chart
 
       # - name: Deploy artifact on aws eks using helm chart
       #   run: |
