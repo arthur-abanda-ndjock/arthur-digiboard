@@ -72,7 +72,7 @@ jobs:
 
       - name: Cache Docker layers
         uses: actions/cache@v3.0.2
-        id: docker_images_cahe  
+        id: docker_images_cache  
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-docker-buildx-${{ github.sha }}
@@ -98,13 +98,13 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-      - name: Update kube config to set name & region & role
-        run: aws eks update-kubeconfig --name tf-cluster --region us-east-2
+      # - name: Update kube config to set name & region & role
+      #   run: aws eks update-kubeconfig --name tf-cluster --region us-east-2
 
 
-      - name: Deploy app using helm
-        run: |
-          helm upgrade --install --wait --timeout 5m0s digiboard-chart ./helm-charts/digiboard-chart
+      # - name: Deploy app using helm
+      #   run: |
+      #     helm upgrade --install --wait --timeout 5m0s digiboard-chart ./helm-charts/digiboard-chart
 
 
       # - name: Deploy postgress db
