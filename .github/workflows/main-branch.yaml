@@ -98,20 +98,15 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-      - name: Scan Docker image
-        uses: snyk/actions/docker@master
-        continue-on-error: true
+      - uses: snyk/actions/setup@master
+      - uses: actions/setup-go@v1
         with:
-          image: ${{ steps.login-ecr.outputs.registry }}/${{env.REPOSITORY_NAME }}:${{ env.IMAGE_TAG }}
-          args: --file=Dockerfile --severity-threshold=high --sarif-file-output=snyk.sarif
+          go-version: "1.13"
+      - name: Snyk test
+        run: snyk test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-      - name: Upload Snyk report as sarif 📦
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: snyk.sarif
-
+          
       # - name: Update kube config to set name & region & role
       #   run: aws eks update-kubeconfig --name tf-cluster --region us-east-2
 
