@@ -12,6 +12,10 @@ permissions:
 jobs:
   build_branch:
     runs-on: ubuntu-latest
+    env:
+      REPOSITORY_NAME: "digiboard"
+      IMAGE_TAG: "latest"
+
     steps:
       - name: checkout on the workdir
         uses: actions/checkout@v3
@@ -79,17 +83,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-docker-buildx-
 
-      - name: Build Docker image
+      - name: Build, tag & push Docker image
         uses: docker/build-push-action@v2
-        # env:
-        #   REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        #   REPOSITORY: digiboard
-        #   IMAGE_TAG: latest
         with:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ steps.login-ecr.outputs.registry }}/digiboard:latest
+          tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.REPOSITORY_NAME }}:${{ env.IMAGE_TAG }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
           
@@ -97,6 +97,20 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+      - name: Scan Docker image
+        uses: snyk/actions/docker@master
+        continue-on-error: true
+        with:
+          image: ${{ steps.login-ecr.outputs.registry }}/${{env.REPOSITORY_NAME }}:${{ env.IMAGE_TAG }}
+          args: --file=Dockerfile --severity-threshold=high --sarif-file-output=snyk.sarif
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Upload Snyk report as sarif 📦
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
 
       # - name: Update kube config to set name & region & role
       #   run: aws eks update-kubeconfig --name tf-cluster --region us-east-2
