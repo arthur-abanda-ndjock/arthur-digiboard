@@ -107,6 +107,11 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
+      - name: Upload Snyk report as sarif 📦
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
+
       # - name: Update kube config to set name & region & role
       #   run: aws eks update-kubeconfig --name tf-cluster --region us-east-2
 
