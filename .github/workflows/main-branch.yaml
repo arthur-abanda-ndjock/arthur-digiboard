@@ -98,15 +98,11 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-      - uses: snyk/actions/setup@master
-      - uses: actions/setup-go@v1
-        with:
-          go-version: "1.13"
-      - name: Snyk test
-        run: snyk test
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/maven-3-jdk-11@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-          
+
       # - name: Update kube config to set name & region & role
       #   run: aws eks update-kubeconfig --name tf-cluster --region us-east-2
 
