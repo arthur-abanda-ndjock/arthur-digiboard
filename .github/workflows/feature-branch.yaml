@@ -43,18 +43,13 @@ jobs:
       # B- build artifact    
       - name: build artifact
         run: mvn -B package
-
-      - name: Get registration token
-        id: getRegToken
-        run: |
-          curl -X POST -H \"Accept: application/vnd.github.v3+json\"  -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/myprofile/myrepo/actions/runners/registration-token        
       # C- Generate and publish test report for java artifact
-      - name: Publish Test Results
+      - name: Publish java test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
           files: |
-            build/test-results/test/*.xml
+            **/target/surefire-reports/*.xml
       - name: Publish Sonarlint Results
         uses: jwgmeligmeyling/spotbugs-github-action@v1.2
         with:
