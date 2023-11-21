@@ -13,6 +13,8 @@ permissions:
     
 jobs:
   build_branch:
+    permissions: write-all
+
     runs-on: ubuntu-latest
     env:
       REPOSITORY_NAME: "digiboard"
@@ -43,6 +45,10 @@ jobs:
       - name: build artifact
         run: mvn -B package
 
+      - name: Get registration token
+        id: getRegToken
+        run: |
+          curl -X POST -H \"Accept: application/vnd.github.v3+json\"  -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/myprofile/myrepo/actions/runners/registration-token        
       # C- Generate and publish test report for java artifact
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
