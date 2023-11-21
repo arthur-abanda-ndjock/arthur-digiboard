@@ -1,5 +1,5 @@
 # minimum base image size
-FROM eclipse-temurin:8-jre-ubi9-minimal 
+FROM eclipse-temurin:17.0.9_9-jre-jammy
 RUN apt-get update 
 RUN apt-get install -y procps
 RUN apt-get install -y dumb-init
