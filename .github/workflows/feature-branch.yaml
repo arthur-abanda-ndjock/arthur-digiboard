@@ -6,7 +6,7 @@ on:
 
 
 permissions:
-#  id-token: write # This is required for requesting the JWT
+  id-token: write
   actions: read
   contents: read
   security-events: write   
@@ -43,6 +43,7 @@ jobs:
       - name: build artifact
         run: mvn -B package
 
+      # C- Generate and publish test report for java artifact
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
@@ -60,7 +61,8 @@ jobs:
         with:
           name: Spotbugs
           path: build/reports/spotbugs/*.xml
-      # C- build and scan docker image  
+
+      # D- build and scan docker image  
       - name: Build and tag docker temp
         run: |
           docker build -t ${{env.REPOSITORY_NAME}}-temp:${{env.IMAGE_TAG}} .
