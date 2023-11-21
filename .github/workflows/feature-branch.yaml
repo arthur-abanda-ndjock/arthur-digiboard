@@ -43,6 +43,23 @@ jobs:
       - name: build artifact
         run: mvn -B package
 
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            build/test-results/test/*.xml
+      - name: Publish Sonarlint Results
+        uses: jwgmeligmeyling/spotbugs-github-action@v1.2
+        with:
+          name: Sonarlint
+          title: Sonarlint report
+          path: build/reports/sonarlint/*.xml
+      - name: Publish Spotbugs Results
+        uses: jwgmeligmeyling/spotbugs-github-action@v1.2
+        with:
+          name: Spotbugs
+          path: build/reports/spotbugs/*.xml
       # C- build and scan docker image  
       - name: Build and tag docker temp
         run: |
