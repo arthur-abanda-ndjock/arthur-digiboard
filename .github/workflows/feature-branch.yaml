@@ -3,13 +3,21 @@ name: Feature branch
 on:
   push:
     branches: ["feature**"]
+
+
+permissions:
+#  id-token: write # This is required for requesting the JWT
+  actions: read
+  contents: read
+  security-events: write   
+    
 jobs:
   build_branch:
     runs-on: ubuntu-latest
     env:
       REPOSITORY_NAME: "digiboard"
       IMAGE_TAG: "latest"
-      
+
     steps:
       # A- Set up runner
       - name: checkout on the workdir
