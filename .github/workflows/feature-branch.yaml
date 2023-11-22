@@ -39,15 +39,8 @@ jobs:
           key: ${{ runner.os }}-node_modules_cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node_modules_cache-
+      
 
-      # Sonar scan
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        with:
-          projectBaseDir: ./arthur-digiboard-backend
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}              
       # B- build artifact    
       - name: build artifact
         run: mvn -B package
@@ -58,6 +51,33 @@ jobs:
         with:
           files: |
             **/target/surefire-reports/*.xml
+
+      # generates coverage-report.md and publishes as checkrun
+      - name: JaCoCo Code Coverage Report
+        id: jacoco_reporter
+        uses: PavanMudigonda/jacoco-reporter@v4.8
+        with:
+          coverage_results_path: ./arthur-digiboard/arthur-digiboard-backend/target/site/jacoco/jacoco.xml
+          coverage_report_name: Coverage
+          coverage_report_title: JaCoCo
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          skip_check_run: false
+          minimum_coverage: 80
+          fail_below_threshold: false
+          publish_only_summary: false
+        
+      # Publish Coverage Job Summary  # Optional
+      - name: Add Coverage Job Summary
+        run: echo "${{ steps.jacoco_reporter.outputs.coverageSummary }}" >> $GITHUB_STEP_SUMMARY
+          
+      # uploads the coverage-report.md artifact  # Optional
+      - name: Upload Code Coverage Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage-report-markdown
+          path: */coverage-results.md 
+          retention-days: 1 
+      
       - name: Publish Sonarlint Results
         uses: jwgmeligmeyling/spotbugs-github-action@v1.2
         with:
