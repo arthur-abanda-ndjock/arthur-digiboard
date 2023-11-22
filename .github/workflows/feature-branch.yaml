@@ -40,6 +40,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node_modules_cache-
 
+      # Sonar scan
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        with:
+          projectBaseDir: ./arthur-digiboard-backend
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}              
       # B- build artifact    
       - name: build artifact
         run: mvn -B package
