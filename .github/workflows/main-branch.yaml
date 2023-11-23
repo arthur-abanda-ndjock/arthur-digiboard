@@ -12,6 +12,8 @@ permissions:
   contents: read
   security-events: write
   checks: write
+  issues: write
+  pull-requests: write
 
 jobs:
   build_branch:
@@ -175,19 +177,19 @@ jobs:
       #   env:
       #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-      # - name: Install kubectl
-      #   uses: azure/setup-kubectl@v2.0
-      #   with:
-      #     version: 'v1.27.0'
-      #   id: install
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v2.0
+        with:
+          version: 'v1.27.0'
+        id: install
 
-      # - name: Update kube config to set name & region & role
-      #   run: aws eks update-kubeconfig --name tf-cluster --region us-east-2
+      - name: Update kube config to set name & region & role
+        run: aws eks update-kubeconfig --name tf-cluster --region us-east-2
 
 
-      # - name: Deploy app using helm
-      #   run: |
-      #     helm upgrade --install --wait --timeout 5m0s digiboard-chart ./helm-charts/digiboard-chart
+      - name: Deploy app using helm
+        run: |
+          helm upgrade --install --wait --timeout 5m0s digiboard-chart ./helm-charts/digiboard-chart
 
 
       # - name: Deploy postgress db
