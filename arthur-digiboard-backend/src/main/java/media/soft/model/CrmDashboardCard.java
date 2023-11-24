@@ -1,4 +1,4 @@
-package com.example.test.healthcheck.model;
+package media.soft.model;
 
 public class CrmDashboardCard {
 

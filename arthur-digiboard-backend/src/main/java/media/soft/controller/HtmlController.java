@@ -1,4 +1,4 @@
-package com.example.test.healthcheck.controller;
+package media.soft.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

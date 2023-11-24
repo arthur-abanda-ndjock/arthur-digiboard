@@ -1,4 +1,4 @@
-package com.example.test.healthcheck;
+package media.soft;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

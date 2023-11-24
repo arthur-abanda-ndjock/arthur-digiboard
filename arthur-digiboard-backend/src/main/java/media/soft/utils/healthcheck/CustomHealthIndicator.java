@@ -1,4 +1,4 @@
-package com.example.test.healthcheck;
+package media.soft.utils.healthcheck;
 
 import java.util.Random;
 
