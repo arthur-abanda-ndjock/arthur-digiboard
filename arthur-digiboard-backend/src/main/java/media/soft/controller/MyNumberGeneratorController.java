@@ -1,4 +1,4 @@
-package com.example.test.healthcheck;
+package media.soft.controller;
 
 import java.util.Random;
 
@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.test.healthcheck.model.CrmDashboardCard;
+import media.soft.model.CrmDashboardCard;
 
 @RestController
 public class MyNumberGeneratorController {
