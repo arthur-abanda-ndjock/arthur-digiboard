@@ -11,10 +11,9 @@ import media.soft.repository.CustomerDao;
 @Service
 public class CustomerService {
 
-	@Autowired
 	private CustomerDao customerDao;
 
-	public CustomerService(CustomerDao customerDao) {
+	public CustomerService(@Autowired CustomerDao customerDao) {
 		this.customerDao = customerDao;
 	}
 

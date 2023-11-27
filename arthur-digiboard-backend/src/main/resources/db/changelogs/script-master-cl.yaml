@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
-      file: classpath:/db/changelogs/scripts/insert-customers.sql
+      file: classpath:/db/changelogs/scripts/insertCustomers.sql
+  - include:
+      file: classpath:/db/changelogs/scripts/insertShippingFeesMart.sql

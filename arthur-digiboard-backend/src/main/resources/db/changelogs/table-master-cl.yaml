@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
-      file: classpath:/db/changelogs/tables/001-initial-schema.sql
+      file: classpath:/db/changelogs/tables/Customer.sql
+  - include:
+      file: classpath:/db/changelogs/tables/ShippingFeesMart.sql
