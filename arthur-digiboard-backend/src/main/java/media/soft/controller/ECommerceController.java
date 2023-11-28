@@ -19,8 +19,11 @@ public class ECommerceController {
 
 	Logger logger = LoggerFactory.getLogger(ECommerceController.class);
 	
-	@Autowired
 	private ECommerceService eCommerceService;
+
+	public ECommerceController(@Autowired ECommerceService eCommerceService){
+		this.eCommerceService = eCommerceService;
+	}
 
 	@GetMapping(value = "/shippingfees", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ShippingFeesMart> getAllShippingFees() {

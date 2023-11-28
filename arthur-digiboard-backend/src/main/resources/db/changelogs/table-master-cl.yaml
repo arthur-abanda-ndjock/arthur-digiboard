@@ -1,5 +1,17 @@
 databaseChangeLog:
   - include:
-      file: classpath:/db/changelogs/tables/Customer.sql
+      file: classpath:/db/changelogs/tables/PrdCustomers.sql
+  - include:
+      file: classpath:/db/changelogs/tables/PrdSoftwareApplications.sql
+  - include:
+      file: classpath:/db/changelogs/tables/PrdEBooks.sql
+  - include:
+      file: classpath:/db/changelogs/tables/PrdDigitalMusic.sql
+  - include:
+      file: classpath:/db/changelogs/tables/PrdOnlineCourses.sql
+  - include:
+      file: classpath:/db/changelogs/tables/PrdStreamingServices.sql
+  - include:
+      file: classpath:/db/changelogs/tables/Orders.sql
   - include:
       file: classpath:/db/changelogs/tables/ShippingFeesMart.sql

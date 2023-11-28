@@ -1,5 +1,5 @@
 databaseChangeLog:
   - include:
-      file: classpath:/db/changelogs/scripts/insertCustomers.sql
+      file: classpath:/db/changelogs/scripts/insertPrdCustomers.sql
   - include:
       file: classpath:/db/changelogs/scripts/insertShippingFeesMart.sql

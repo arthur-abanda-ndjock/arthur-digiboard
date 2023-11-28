@@ -33,11 +33,6 @@ public class ShippingFeesMartDao {
 	private static class ShippingFeesMartRowMapper implements RowMapper<ShippingFeesMart> {
 		@Override
 		public ShippingFeesMart mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-			// Integer id = resultSet.getInt("id");
-			// BigDecimal totalDailyFees = resultSet.getBigDecimal("totalDailyFees");
-			// LocalDateTime asofdate =
-			// resultSet.getTimestamp("asofdate").toLocalDateTime();
-
 			return new ShippingFeesMart(resultSet.getInt("id"),
 					resultSet.getBigDecimal("totalDailyFees"),
 					resultSet.getTimestamp("asofdate").toLocalDateTime());
