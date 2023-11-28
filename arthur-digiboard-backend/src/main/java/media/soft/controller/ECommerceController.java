@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import media.soft.model.Order;
 import media.soft.model.ShippingFeesMart;
 import media.soft.service.ECommerceService;
 
@@ -18,10 +19,10 @@ import media.soft.service.ECommerceService;
 public class ECommerceController {
 
 	Logger logger = LoggerFactory.getLogger(ECommerceController.class);
-	
+
 	private ECommerceService eCommerceService;
 
-	public ECommerceController(@Autowired ECommerceService eCommerceService){
+	public ECommerceController(@Autowired ECommerceService eCommerceService) {
 		this.eCommerceService = eCommerceService;
 	}
 
@@ -29,4 +30,10 @@ public class ECommerceController {
 	public List<ShippingFeesMart> getAllShippingFees() {
 		return eCommerceService.getAllShippingFees();
 	}
+
+	@GetMapping(value = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Order> getAllOrders() {
+		return eCommerceService.getAllOrders();
+	}
+
 }

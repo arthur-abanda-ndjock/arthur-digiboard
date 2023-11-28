@@ -5,6 +5,7 @@ CREATE TABLE Orders (
     ProductType VARCHAR(20), -- Indicates whether it's a software application, e-book, etc.
     ProductID INT, -- ID of the specific product (SoftwareID, BookID, etc.)
     OrderDate DATE,
+    Price DECIMAL(10, 2),
     FOREIGN KEY (CustomerID) REFERENCES PrdCustomers(CustomerID)
     -- ,
     -- CONSTRAINT CHK_ProductType CHECK (ProductType IN ('Software', 'EBook', 'PrdDigitalMusic', 'OnlineCourse')),

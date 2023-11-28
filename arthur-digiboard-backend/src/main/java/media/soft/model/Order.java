@@ -1,8 +1,10 @@
 package media.soft.model;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 import lombok.Data;
 
-import java.sql.Date;
 
 @Data
 public class Order {
@@ -10,5 +12,7 @@ public class Order {
     private int customerID;
     private String productType;
     private int productID;
-    private Date orderDate;
+    private LocalDate orderDate;
+    private BigDecimal price;
+    
 }

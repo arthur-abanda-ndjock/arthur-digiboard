@@ -1,16 +1,19 @@
 package media.soft.service;
 
-import lombok.RequiredArgsConstructor;
 import media.soft.model.PrdDigitalMusic;
 import media.soft.repository.PrdDigitalMusicRepositoryDao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class PrdDigitalMusicService {
 
     private final PrdDigitalMusicRepositoryDao prdDigitalMusicRepositoryDao;
+
+    public  PrdDigitalMusicService(@Autowired PrdDigitalMusicRepositoryDao prdDigitalMusicRepositoryDao){
+        this.prdDigitalMusicRepositoryDao = prdDigitalMusicRepositoryDao;
+    }
 
     public void insertPrdDigitalMusic(PrdDigitalMusic prdDigitalMusic) {
         prdDigitalMusicRepositoryDao.insert(prdDigitalMusic);

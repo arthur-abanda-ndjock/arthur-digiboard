@@ -1,17 +1,19 @@
 package media.soft.service;
 
-import lombok.RequiredArgsConstructor;
 import media.soft.model.PrdOnlineCourse;
 import media.soft.repository.PrdOnlineCoursesRepositoryDao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class PrdOnlineCoursesService {
 
     private final PrdOnlineCoursesRepositoryDao prdOnlineCoursesRepositoryDao;
 
+    public PrdOnlineCoursesService(@Autowired PrdOnlineCoursesRepositoryDao prdOnlineCoursesRepositoryDao){
+        this.prdOnlineCoursesRepositoryDao = prdOnlineCoursesRepositoryDao;
+    }
     public void insertPrdOnlineCourses(PrdOnlineCourse prdOnlineCourse) {
         prdOnlineCoursesRepositoryDao.insert(prdOnlineCourse);
     }

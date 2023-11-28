@@ -3,17 +3,25 @@ package media.soft.repository;
 import lombok.RequiredArgsConstructor;
 import media.soft.model.PrdSoftwareApplication;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
-@RequiredArgsConstructor
 public class PrdSoftwareApplicationsRepositoryDao {
 
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
+
+    public PrdSoftwareApplicationsRepositoryDao(@Autowired NamedParameterJdbcTemplate namedJdbcTemplate) {
+        this.namedJdbcTemplate = namedJdbcTemplate;
+    }   
 
     public void insert(PrdSoftwareApplication prdSoftwareApplication) {
         String sql = "INSERT INTO PrdSoftwareApplications (SoftwareID, Name, Version, Developer, LicenseType, Price, ReleaseDate, Platform) " +
@@ -58,5 +66,26 @@ public class PrdSoftwareApplicationsRepositoryDao {
         params.put("softwareId", softwareId);
 
         namedJdbcTemplate.update(sql, params);
+    }
+
+    public List<PrdSoftwareApplication> readAll() {
+        String sql = "SELECT * FROM PrdSoftwareApplications";
+        return namedJdbcTemplate.query(sql, new PrdSoftwareApplicationRowMapper());
+    }
+
+    private static class PrdSoftwareApplicationRowMapper implements RowMapper<PrdSoftwareApplication> {
+        @Override
+        public PrdSoftwareApplication mapRow(ResultSet rs, int rowNum) throws SQLException {
+            PrdSoftwareApplication prdSoftwareApplication = new PrdSoftwareApplication();
+            prdSoftwareApplication.setSoftwareID(rs.getInt("SoftwareID"));
+            prdSoftwareApplication.setName(rs.getString("Name"));
+            prdSoftwareApplication.setVersion(rs.getString("Version"));
+            prdSoftwareApplication.setDeveloper(rs.getString("Developer"));
+            prdSoftwareApplication.setLicenseType(rs.getString("LicenseType"));
+            prdSoftwareApplication.setPrice(rs.getDouble("Price"));
+            prdSoftwareApplication.setReleaseDate(rs.getDate("ReleaseDate"));
+            prdSoftwareApplication.setPlatform(rs.getString("Platform"));
+            return prdSoftwareApplication;
+        }
     }
 }

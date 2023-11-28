@@ -3,17 +3,26 @@ package media.soft.repository;
 import lombok.RequiredArgsConstructor;
 import media.soft.model.PrdOnlineCourse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
-@RequiredArgsConstructor
 public class PrdOnlineCoursesRepositoryDao {
 
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
+
+    public PrdOnlineCoursesRepositoryDao(@Autowired NamedParameterJdbcTemplate namedJdbcTemplate){
+        this.namedJdbcTemplate = namedJdbcTemplate;
+    }
 
     public void insert(PrdOnlineCourse prdOnlineCourse) {
         String sql = "INSERT INTO PrdOnlineCourses (CourseID, Title, Instructor, Duration, Description, Price) " +
@@ -30,7 +39,7 @@ public class PrdOnlineCoursesRepositoryDao {
         namedJdbcTemplate.update(sql, params);
     }
 
-    public void updateById(int courseId, PrdOnlineCourse prdOnlineCourses) {
+    public void updateById(int courseId, PrdOnlineCourse prdOnlineCourse) {
         String sql = "UPDATE PrdOnlineCourses " +
                      "SET Title = :title, Instructor = :instructor, Duration = :duration, " +
                      "Description = :description, Price = :price " +
@@ -38,11 +47,11 @@ public class PrdOnlineCoursesRepositoryDao {
         
         Map<String, Object> params = new HashMap<>();
         params.put("courseId", courseId);
-        params.put("title", prdOnlineCourses.getTitle());
-        params.put("instructor", prdOnlineCourses.getInstructor());
-        params.put("duration", prdOnlineCourses.getDuration());
-        params.put("description", prdOnlineCourses.getDescription());
-        params.put("price", prdOnlineCourses.getPrice());
+        params.put("title", prdOnlineCourse.getTitle());
+        params.put("instructor", prdOnlineCourse.getInstructor());
+        params.put("duration", prdOnlineCourse.getDuration());
+        params.put("description", prdOnlineCourse.getDescription());
+        params.put("price", prdOnlineCourse.getPrice());
 
         namedJdbcTemplate.update(sql, params);
     }
@@ -54,5 +63,24 @@ public class PrdOnlineCoursesRepositoryDao {
         params.put("courseId", courseId);
 
         namedJdbcTemplate.update(sql, params);
+    }
+
+    public List<PrdOnlineCourse> readAll() {
+        String sql = "SELECT * FROM PrdOnlineCourses";
+        return namedJdbcTemplate.query(sql, new PrdOnlineCourseRowMapper());
+    }
+
+    private static class PrdOnlineCourseRowMapper implements RowMapper<PrdOnlineCourse> {
+        @Override
+        public PrdOnlineCourse mapRow(ResultSet rs, int rowNum) throws SQLException {
+            PrdOnlineCourse prdOnlineCourse = new PrdOnlineCourse();
+            prdOnlineCourse.setCourseID(rs.getInt("CourseID"));
+            prdOnlineCourse.setTitle(rs.getString("Title"));
+            prdOnlineCourse.setInstructor(rs.getString("Instructor"));
+            prdOnlineCourse.setDuration(rs.getInt("Duration"));
+            prdOnlineCourse.setDescription(rs.getString("Description"));
+            prdOnlineCourse.setPrice(rs.getDouble("Price"));
+            return prdOnlineCourse;
+        }
     }
 }
