@@ -1,19 +1,17 @@
 package media.soft.repository;
 
-import lombok.RequiredArgsConstructor;
-import media.soft.model.PrdCustomer;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Repository;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import media.soft.model.PrdCustomer;
 
 @Repository
 
@@ -21,14 +19,14 @@ public class PrdCustomersRepositoryDao {
 
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
 
-    public PrdCustomersRepositoryDao(@Autowired NamedParameterJdbcTemplate namedJdbcTemplate){
+    public PrdCustomersRepositoryDao(@Autowired NamedParameterJdbcTemplate namedJdbcTemplate) {
         this.namedJdbcTemplate = namedJdbcTemplate;
     }
 
     public void insert(PrdCustomer prdCustomers) {
         String sql = "INSERT INTO PrdCustomers (CustomerID, FirstName, LastName, Sex, Address) " +
-                     "VALUES (:customerId, :firstName, :lastName, :sex, :address)";
-        
+                "VALUES (:customerId, :firstName, :lastName, :sex, :address)";
+
         Map<String, Object> params = new HashMap<>();
         params.put("customerId", prdCustomers.getCustomerID());
         params.put("firstName", prdCustomers.getFirstName());
@@ -41,9 +39,9 @@ public class PrdCustomersRepositoryDao {
 
     public void updateById(int customerId, PrdCustomer prdCustomers) {
         String sql = "UPDATE PrdCustomers " +
-                     "SET FirstName = :firstName, LastName = :lastName, Sex = :sex, Address = :address " +
-                     "WHERE CustomerID = :customerId";
-        
+                "SET FirstName = :firstName, LastName = :lastName, Sex = :sex, Address = :address " +
+                "WHERE CustomerID = :customerId";
+
         Map<String, Object> params = new HashMap<>();
         params.put("customerId", customerId);
         params.put("firstName", prdCustomers.getFirstName());
@@ -56,7 +54,7 @@ public class PrdCustomersRepositoryDao {
 
     public void deleteById(int customerId) {
         String sql = "DELETE FROM PrdCustomers WHERE CustomerID = :customerId";
-        
+
         Map<String, Object> params = new HashMap<>();
         params.put("customerId", customerId);
 

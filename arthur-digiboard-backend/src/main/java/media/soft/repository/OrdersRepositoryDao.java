@@ -1,6 +1,11 @@
 package media.soft.repository;
 
-import media.soft.model.Order;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -8,12 +13,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import media.soft.model.Order;
 
 @Repository
 public class OrdersRepositoryDao {
@@ -76,8 +76,8 @@ public class OrdersRepositoryDao {
     public List<Order> getOrdersByPeriod(LocalDate start, LocalDate end) {
         String sql = "SELECT * FROM Orders where orderdate between :start and :end ";
         MapSqlParameterSource paramMap = new MapSqlParameterSource()
-                                                    .addValue("start", start)
-                                                    .addValue("end", end);
+                .addValue("start", start)
+                .addValue("end", end);
         return namedJdbcTemplate.query(sql, paramMap, new OrderRowMapper());
     }
 
@@ -93,5 +93,10 @@ public class OrdersRepositoryDao {
             order.setPrice(rs.getBigDecimal("Price"));
             return order;
         }
+    }
+
+    public Long getTotalCount() {
+        String sql = "SELECT count(1) from Orders";
+        return namedJdbcTemplate.queryForObject(sql, new MapSqlParameterSource(), Long.class);
     }
 }

@@ -1,6 +1,5 @@
 package media.soft.service;
 
-import lombok.RequiredArgsConstructor;
 import media.soft.model.PrdEBook;
 import media.soft.repository.PrdEBooksRepositoryDao;
 
