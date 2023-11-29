@@ -3,6 +3,8 @@ package media.soft.repository;
 import lombok.RequiredArgsConstructor;
 import media.soft.model.PrdDigitalMusic;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -17,6 +19,9 @@ import java.util.Map;
 @Repository
 public class PrdDigitalMusicRepositoryDao {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(PrdDigitalMusicRepositoryDao.class);
+
+    
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
 
     public PrdDigitalMusicRepositoryDao(@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate) {

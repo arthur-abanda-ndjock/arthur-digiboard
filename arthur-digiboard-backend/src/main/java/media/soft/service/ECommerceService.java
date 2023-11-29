@@ -26,6 +26,6 @@ public class ECommerceService {
 	}
 
 	public List<Order> getAllOrders(){
-		return ordersRepositoryDao.readAll();
+		return ordersRepositoryDao.getAll();
 	}
 }

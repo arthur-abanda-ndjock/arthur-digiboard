@@ -1,6 +1,5 @@
 package media.soft.repository;
 
-import lombok.RequiredArgsConstructor;
 import media.soft.model.PrdStreamingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
