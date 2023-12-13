@@ -1,33 +1,31 @@
 package media.soft.repository;
 
-import lombok.RequiredArgsConstructor;
-import media.soft.model.PrdOnlineCourse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Repository;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import media.soft.model.PrdOnlineCourse;
+
 @Repository
 public class PrdOnlineCoursesRepositoryDao {
 
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
 
-    public PrdOnlineCoursesRepositoryDao(@Autowired NamedParameterJdbcTemplate namedJdbcTemplate){
+    public PrdOnlineCoursesRepositoryDao(@Autowired NamedParameterJdbcTemplate namedJdbcTemplate) {
         this.namedJdbcTemplate = namedJdbcTemplate;
     }
 
     public void insert(PrdOnlineCourse prdOnlineCourse) {
         String sql = "INSERT INTO PrdOnlineCourses (CourseID, Title, Instructor, Duration, Description, Price) " +
-                     "VALUES (:courseId, :title, :instructor, :duration, :description, :price)";
-        
+                "VALUES (:courseId, :title, :instructor, :duration, :description, :price)";
+
         Map<String, Object> params = new HashMap<>();
         params.put("courseId", prdOnlineCourse.getCourseID());
         params.put("title", prdOnlineCourse.getTitle());
@@ -41,10 +39,10 @@ public class PrdOnlineCoursesRepositoryDao {
 
     public void updateById(int courseId, PrdOnlineCourse prdOnlineCourse) {
         String sql = "UPDATE PrdOnlineCourses " +
-                     "SET Title = :title, Instructor = :instructor, Duration = :duration, " +
-                     "Description = :description, Price = :price " +
-                     "WHERE CourseID = :courseId";
-        
+                "SET Title = :title, Instructor = :instructor, Duration = :duration, " +
+                "Description = :description, Price = :price " +
+                "WHERE CourseID = :courseId";
+
         Map<String, Object> params = new HashMap<>();
         params.put("courseId", courseId);
         params.put("title", prdOnlineCourse.getTitle());
@@ -58,7 +56,7 @@ public class PrdOnlineCoursesRepositoryDao {
 
     public void deleteById(int courseId) {
         String sql = "DELETE FROM PrdOnlineCourses WHERE CourseID = :courseId";
-        
+
         Map<String, Object> params = new HashMap<>();
         params.put("courseId", courseId);
 

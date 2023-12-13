@@ -1,4 +1,4 @@
--- Insert sample data into PrdStreamingServices table
+-- Insert  PrdStreamingServices table
 INSERT INTO PrdStreamingServices (ServiceID, Name, Platform, SubscriptionCost, ContentLibrarySize)
 VALUES
     (1, 'Netflix', 'Web, Mobile, Smart TVs', 12.99, 50000),

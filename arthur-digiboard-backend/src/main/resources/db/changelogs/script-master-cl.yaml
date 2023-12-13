@@ -15,3 +15,9 @@ databaseChangeLog:
       file: classpath:/db/changelogs/scripts/insertOrders.sql
   - include:
       file: classpath:/db/changelogs/scripts/insertShippingFeesMart.sql
+  - include:
+      file: classpath:/db/changelogs/scripts/insertDigitalMarketingCategories.sql
+  - include:
+      file: classpath:/db/changelogs/scripts/insertDigitalMarketingSubcategories.sql
+  - include:
+      file: classpath:/db/changelogs/scripts/insertMarketingCosts.sql

@@ -1,4 +1,4 @@
--- Insert sample data into PrdEBooks table
+-- Insert  PrdEBooks table
 INSERT INTO PrdEBooks (BookID, Title, Author, Genre, ISBN, Price, PublicationDate)
 VALUES
     (1, 'The Silent Ocean', 'Mary Johnson', 'Fiction', '978-1234567890', 9.99, '2023-07-20'),

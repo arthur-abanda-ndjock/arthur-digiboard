@@ -1,4 +1,4 @@
--- Insert sample data into PrdDigitalMusic table
+-- Insert PrdDigitalMusic table
 INSERT INTO PrdDigitalMusic (TrackID, Title, Artist, Album, Genre, Duration, ReleaseDate, Price)
 VALUES
     (1, 'Summer Vibes', 'DJ Groove', 'Beach Party Mix', 'Electronic', '00:03:30', '2023-06-15', 1.99),

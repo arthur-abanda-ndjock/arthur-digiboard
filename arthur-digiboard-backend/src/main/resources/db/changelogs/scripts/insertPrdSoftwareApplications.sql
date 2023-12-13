@@ -1,4 +1,4 @@
--- Insert sample data into PrdSoftwareApplications table
+-- Insert  PrdSoftwareApplications table
 INSERT INTO PrdSoftwareApplications (SoftwareID, Name, Version, Developer, LicenseType, Price, ReleaseDate, Platform)
 VALUES
     (1, 'Microsoft Office', '2023', 'Microsoft', 'Enterprise', 99.99, '2023-08-01', 'Windows'),

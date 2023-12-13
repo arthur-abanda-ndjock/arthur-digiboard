@@ -1,5 +1,6 @@
 package media.soft.repository;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import media.soft.model.Order;
+import media.soft.model.OrderSummary;
 
 @Repository
 public class OrdersRepositoryDao {
@@ -68,6 +70,13 @@ public class OrdersRepositoryDao {
         return namedJdbcTemplate.query(sql, new OrderRowMapper());
     }
 
+    public List<OrderSummary> getRecentOrders() {
+        String sql = "SELECT a.OrderID, c.FirstName, c.LastName, a.ProductType, a.OrderDate, a.Price " +
+                "FROM Orders a JOIN PrdCustomers c on a.CustomerID = c.CustomerID" +
+                " order by OrderDate desc limit 7";
+        return namedJdbcTemplate.query(sql, new OrderSummaryRowMapper());
+    }
+
     public LocalDate getLatestOrderDate() {
         String sql = "SELECT max(OrderDate) from Orders";
         return namedJdbcTemplate.queryForObject(sql, new MapSqlParameterSource(), LocalDate.class);
@@ -95,8 +104,27 @@ public class OrdersRepositoryDao {
         }
     }
 
+    private static class OrderSummaryRowMapper implements RowMapper<OrderSummary> {
+        @Override
+        public OrderSummary mapRow(ResultSet rs, int rowNum) throws SQLException {
+            OrderSummary order = new OrderSummary();
+            order.setOrderID(rs.getInt("OrderID"));
+            order.setCustomerFullName(rs.getString("FirstName").concat(" ").concat(rs.getString("LastName")));
+            order.setProductType(rs.getString("ProductType"));
+            order.setOrderDate(rs.getDate("OrderDate").toLocalDate());
+            order.setPrice(rs.getBigDecimal("Price"));
+            return order;
+        }
+    }
+
     public Long getTotalCount() {
         String sql = "SELECT count(1) from Orders";
         return namedJdbcTemplate.queryForObject(sql, new MapSqlParameterSource(), Long.class);
+    }
+
+    // get total cost sum
+    public BigDecimal getOrderAmountSum() {
+        String sql = "SELECT sum(price) FROM Orders";
+        return namedJdbcTemplate.queryForObject(sql, new MapSqlParameterSource(), BigDecimal.class);
     }
 }

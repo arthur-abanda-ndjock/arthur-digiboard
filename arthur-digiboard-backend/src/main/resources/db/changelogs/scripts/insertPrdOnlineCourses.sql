@@ -1,4 +1,4 @@
--- Insert sample data into PrdOnlineCourses table
+-- Insert  PrdOnlineCourses table
 INSERT INTO PrdOnlineCourses (CourseID, Title, Instructor, Duration, Description, Price)
 VALUES
     (1, 'Introduction to Python', 'Prof. CodeMaster', 240, 'Learn the basics of Python programming language.', 29.99),
