@@ -66,7 +66,7 @@ public class PrdCustomersRepositoryDao {
         return namedJdbcTemplate.query(sql, new PrdCustomerRowMapper());
     }
 
-    private static class PrdCustomerRowMapper implements RowMapper<PrdCustomer> {
+    public static class PrdCustomerRowMapper implements RowMapper<PrdCustomer> {
         @Override
         public PrdCustomer mapRow(ResultSet rs, int rowNum) throws SQLException {
             PrdCustomer prdCustomer = new PrdCustomer();

@@ -16,7 +16,6 @@ public class CustomerDao {
 
 	private final JdbcTemplate jdbcTemplate;
 
-	
 	public CustomerDao(@Autowired JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
@@ -31,7 +30,7 @@ public class CustomerDao {
 		return jdbcTemplate.query(sql, new CustomerRowMapper());
 	}
 
-	private static class CustomerRowMapper implements RowMapper<Customer> {
+	public static class CustomerRowMapper implements RowMapper<Customer> {
 		@Override
 		public Customer mapRow(ResultSet resultSet, int rowNum) throws SQLException {
 			return new Customer(resultSet.getInt("id"), resultSet.getString("name"));

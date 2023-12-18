@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import media.soft.model.Order;
+import media.soft.model.OrderStatus;
 import media.soft.model.OrderSummary;
 
 @Repository
@@ -90,33 +91,6 @@ public class OrdersRepositoryDao {
         return namedJdbcTemplate.query(sql, paramMap, new OrderRowMapper());
     }
 
-    private static class OrderRowMapper implements RowMapper<Order> {
-        @Override
-        public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Order order = new Order();
-            order.setOrderID(rs.getInt("OrderID"));
-            order.setCustomerID(rs.getInt("CustomerID"));
-            order.setProductType(rs.getString("ProductType"));
-            order.setProductID(rs.getInt("ProductID"));
-            order.setOrderDate(rs.getDate("OrderDate").toLocalDate());
-            order.setPrice(rs.getBigDecimal("Price"));
-            return order;
-        }
-    }
-
-    private static class OrderSummaryRowMapper implements RowMapper<OrderSummary> {
-        @Override
-        public OrderSummary mapRow(ResultSet rs, int rowNum) throws SQLException {
-            OrderSummary order = new OrderSummary();
-            order.setOrderID(rs.getInt("OrderID"));
-            order.setCustomerFullName(rs.getString("FirstName").concat(" ").concat(rs.getString("LastName")));
-            order.setProductType(rs.getString("ProductType"));
-            order.setOrderDate(rs.getDate("OrderDate").toLocalDate());
-            order.setPrice(rs.getBigDecimal("Price"));
-            return order;
-        }
-    }
-
     public Long getTotalCount() {
         String sql = "SELECT count(1) from Orders";
         return namedJdbcTemplate.queryForObject(sql, new MapSqlParameterSource(), Long.class);
@@ -127,4 +101,35 @@ public class OrdersRepositoryDao {
         String sql = "SELECT sum(price) FROM Orders";
         return namedJdbcTemplate.queryForObject(sql, new MapSqlParameterSource(), BigDecimal.class);
     }
+
+    public static class OrderRowMapper implements RowMapper<Order> {
+        @Override
+        public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+            int orderID = rs.getInt("OrderID");
+            int customerID = rs.getInt("CustomerID");
+            String productType = rs.getString("ProductType");
+            int productID = rs.getInt("ProductID");
+            LocalDate orderDate = rs.getDate("OrderDate").toLocalDate();
+            BigDecimal price = rs.getBigDecimal("Price");
+
+            return new Order(orderID, customerID, productType, productID, orderDate, price);
+        }
+    }
+
+    public static class OrderSummaryRowMapper implements RowMapper<OrderSummary> {
+        @Override
+        public OrderSummary mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+            int orderID = rs.getInt("OrderID");
+            String customerFullName = rs.getString("FirstName").concat(" ").concat(rs.getString("LastName"));
+            String productType = rs.getString("ProductType");
+            LocalDate orderDate = rs.getDate("OrderDate").toLocalDate();
+            BigDecimal price = rs.getBigDecimal("Price");
+            OrderStatus status = OrderStatus.COMPLETED;
+            return new OrderSummary(orderID, customerFullName, productType, orderDate, price, status);
+
+        }
+    }
+
 }

@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.EmptySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -77,7 +78,7 @@ public class MarketingCostsRepositoryDao {
 	// get total cost sum
 	public BigDecimal getMarketingCostSum() {
 		String sql = "SELECT sum(cost) FROM MarketingCosts";
-		return namedJdbcTemplate.queryForObject(sql, new MapSqlParameterSource(), BigDecimal.class);
+		return namedJdbcTemplate.queryForObject(sql, EmptySqlParameterSource.INSTANCE, BigDecimal.class);
 	}
 
 	// Recents
@@ -121,10 +122,10 @@ public class MarketingCostsRepositoryDao {
 
 	public LocalDate getLatestMarketingCostDate() {
 		String sql = "SELECT max(date_recorded) from MarketingCosts";
-		return namedJdbcTemplate.queryForObject(sql, new MapSqlParameterSource(), LocalDate.class);
+		return namedJdbcTemplate.queryForObject(sql, EmptySqlParameterSource.INSTANCE, LocalDate.class);
 	}
 
-	private static class CategoryCostRowMapper implements RowMapper<CategoryCost> {
+	public static class CategoryCostRowMapper implements RowMapper<CategoryCost> {
 		@Override
 		public CategoryCost mapRow(ResultSet rs, int rowNum) throws SQLException {
 			CategoryCost categoryCost = new CategoryCost();
@@ -135,7 +136,7 @@ public class MarketingCostsRepositoryDao {
 	}
 
 	// RowMapper
-	private static class MarketingCostsRowMapper implements RowMapper<MarketingCost> {
+	public static class MarketingCostsRowMapper implements RowMapper<MarketingCost> {
 		@Override
 		public MarketingCost mapRow(ResultSet rs, int rowNum) throws SQLException {
 
@@ -151,7 +152,7 @@ public class MarketingCostsRepositoryDao {
 	}
 
 	// RowMapper
-	private static class MarketingCostRecapRowMapper implements RowMapper<MarketingCostRecap> {
+	public static class MarketingCostRecapRowMapper implements RowMapper<MarketingCostRecap> {
 		@Override
 		public MarketingCostRecap mapRow(ResultSet rs, int rowNum) throws SQLException {
 

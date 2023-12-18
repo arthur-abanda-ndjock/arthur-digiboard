@@ -1,7 +1,10 @@
 package media.soft.repository;
 
-import lombok.RequiredArgsConstructor;
-import media.soft.model.PrdDigitalMusic;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,18 +13,13 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import media.soft.model.PrdDigitalMusic;
 
 @Repository
 public class PrdDigitalMusicRepositoryDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PrdDigitalMusicRepositoryDao.class);
 
-    
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
 
     public PrdDigitalMusicRepositoryDao(@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
@@ -81,7 +79,7 @@ public class PrdDigitalMusicRepositoryDao {
     }
 
     // RowMapper
-    private static class PrdDigitalMusicRowMapper implements RowMapper<PrdDigitalMusic> {
+    public static class PrdDigitalMusicRowMapper implements RowMapper<PrdDigitalMusic> {
         @Override
         public PrdDigitalMusic mapRow(ResultSet rs, int rowNum) throws SQLException {
             PrdDigitalMusic prdDigitalMusic = new PrdDigitalMusic();

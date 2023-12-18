@@ -1,18 +1,17 @@
 package media.soft.repository;
 
-import lombok.RequiredArgsConstructor;
-import media.soft.model.PrdSoftwareApplication;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import media.soft.model.PrdSoftwareApplication;
 
 @Repository
 public class PrdSoftwareApplicationsRepositoryDao {
@@ -21,12 +20,13 @@ public class PrdSoftwareApplicationsRepositoryDao {
 
     public PrdSoftwareApplicationsRepositoryDao(@Autowired NamedParameterJdbcTemplate namedJdbcTemplate) {
         this.namedJdbcTemplate = namedJdbcTemplate;
-    }   
+    }
 
     public void insert(PrdSoftwareApplication prdSoftwareApplication) {
-        String sql = "INSERT INTO PrdSoftwareApplications (SoftwareID, Name, Version, Developer, LicenseType, Price, ReleaseDate, Platform) " +
-                     "VALUES (:softwareId, :name, :version, :developer, :licenseType, :price, :releaseDate, :platform)";
-        
+        String sql = "INSERT INTO PrdSoftwareApplications (SoftwareID, Name, Version, Developer, LicenseType, Price, ReleaseDate, Platform) "
+                +
+                "VALUES (:softwareId, :name, :version, :developer, :licenseType, :price, :releaseDate, :platform)";
+
         Map<String, Object> params = new HashMap<>();
         params.put("softwareId", prdSoftwareApplication.getSoftwareID());
         params.put("name", prdSoftwareApplication.getName());
@@ -42,10 +42,10 @@ public class PrdSoftwareApplicationsRepositoryDao {
 
     public void updateById(int softwareId, PrdSoftwareApplication prdSoftwareApplication) {
         String sql = "UPDATE PrdSoftwareApplications " +
-                     "SET Name = :name, Version = :version, Developer = :developer, " +
-                     "LicenseType = :licenseType, Price = :price, ReleaseDate = :releaseDate, Platform = :platform " +
-                     "WHERE SoftwareID = :softwareId";
-        
+                "SET Name = :name, Version = :version, Developer = :developer, " +
+                "LicenseType = :licenseType, Price = :price, ReleaseDate = :releaseDate, Platform = :platform " +
+                "WHERE SoftwareID = :softwareId";
+
         Map<String, Object> params = new HashMap<>();
         params.put("softwareId", softwareId);
         params.put("name", prdSoftwareApplication.getName());
@@ -61,7 +61,7 @@ public class PrdSoftwareApplicationsRepositoryDao {
 
     public void deleteById(int softwareId) {
         String sql = "DELETE FROM PrdSoftwareApplications WHERE SoftwareID = :softwareId";
-        
+
         Map<String, Object> params = new HashMap<>();
         params.put("softwareId", softwareId);
 
