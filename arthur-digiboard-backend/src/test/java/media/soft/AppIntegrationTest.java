@@ -57,4 +57,34 @@ class AppIntegrationTest {
                                 .statusCode();
                 assertEquals(HttpStatus.OK.value(), statusCode);
         }
+
+        @Test
+        void givenOrderId_WhenAccessOrderApi_thenSuccess() {
+                String orderId = "/1";
+                int statusCode = RestAssured
+                                .get(localhost + port + ECommerceController.API_PREFIX + ECommerceController.ORDERS
+                                                + orderId)
+                                .statusCode();
+                assertEquals(HttpStatus.OK.value(), statusCode);
+        }
+
+        @Test
+        void givenOrderId_WhenAccessOrderApi_thenFailure() {
+                String orderId = "/1000000000";
+                int statusCode = RestAssured
+                                .get(localhost + port + ECommerceController.API_PREFIX + ECommerceController.ORDERS
+                                                + orderId)
+                                .statusCode();
+                assertEquals(HttpStatus.NOT_FOUND.value(), statusCode);
+        }
+
+        @Test
+        void givenOrderId_WhenAccessOrderApi_thenFailure2() {
+                String orderId = "/1000000XXXX00";
+                int statusCode = RestAssured
+                                .get(localhost + port + ECommerceController.API_PREFIX + ECommerceController.ORDERS
+                                                + orderId)
+                                .statusCode();
+                assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), statusCode);
+        }
 }

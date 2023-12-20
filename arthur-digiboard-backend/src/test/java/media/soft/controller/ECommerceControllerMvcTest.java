@@ -54,7 +54,6 @@ class ECommerceControllerMvcTest {
     @Test
     void testGetAllOrdersByDate() throws Exception {
 
-        // Mock data
         OrderPriceByDate priceByDate = new OrderPriceByDate();
 
         priceByDate.setOrderDate(LocalDate.now());
@@ -78,11 +77,9 @@ class ECommerceControllerMvcTest {
 
         when(ordersService.getAllOrderGroupedByDate()).thenReturn(orderPriceByDates);
 
-        // act
         ResultActions result = mockMvc.perform(get("/api/ecommerce/orders/by-date")
                 .contentType(MediaType.APPLICATION_JSON));
 
-        // Verify the result
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].orderDate", is(notNullValue())))
@@ -101,7 +98,7 @@ class ECommerceControllerMvcTest {
 
     @Test
     void testGetSaleRecapByWeek() throws Exception {
-        // Mock data
+
         List<SalesWeeklyRecap> salesWeeklyRecaps = Arrays.asList(
                 new SalesWeeklyRecap("Week1", BigDecimal.valueOf(100.0))
 
@@ -109,11 +106,9 @@ class ECommerceControllerMvcTest {
 
         when(ordersService.getWeeklySaleRecaps(4)).thenReturn(salesWeeklyRecaps);
 
-        // act
         ResultActions result = mockMvc.perform(get("/api/ecommerce/orders/weekly-sales")
                 .contentType(MediaType.APPLICATION_JSON));
 
-        // Verify the result
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].weekId", is(equalTo("Week1"))))
@@ -123,7 +118,6 @@ class ECommerceControllerMvcTest {
     @Test
     void testGetMarketingCosts() throws Exception {
 
-        // Mock data
         MarketingCost cost = new MarketingCost();
         cost.setId(1);
         cost.setSubcategoryId(1);
@@ -135,11 +129,9 @@ class ECommerceControllerMvcTest {
 
         when(marketingCostService.getAll()).thenReturn(marketingCosts);
 
-        // act
         ResultActions result = mockMvc.perform(get("/api/ecommerce/costs/all")
                 .contentType(MediaType.APPLICATION_JSON));
 
-        // Verify the result
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].id", is(equalTo(1))))
@@ -157,7 +149,6 @@ class ECommerceControllerMvcTest {
         cost2.setName("SubCategory2");
         cost2.setTotalCost(150.0);
 
-        // Mock data
         Map<String, List<CategoryCost>> categoryCostMap = Collections.singletonMap("categories", Arrays.asList(
                 cost,
                 cost2
@@ -166,11 +157,9 @@ class ECommerceControllerMvcTest {
 
         when(marketingCostService.getTotalsByAllCategories()).thenReturn(categoryCostMap);
 
-        // act
         ResultActions result = mockMvc.perform(get("/api/ecommerce/costs/categories")
                 .contentType(MediaType.APPLICATION_JSON));
 
-        // Verify the result
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$.categories", hasSize(2)))
                 .andExpect(jsonPath("$['categories'][0].name", is(equalTo("SubCategory1"))))
@@ -189,17 +178,14 @@ class ECommerceControllerMvcTest {
         recap.setDateRecorded(LocalDate.now());
         recap.setCost(50.0);
 
-        // Mock data
         List<MarketingCostRecap> marketingCostRecaps = Arrays.asList(
                 recap);
 
         when(marketingCostService.getRecentCost()).thenReturn(marketingCostRecaps);
 
-        // act
         ResultActions result = mockMvc.perform(get("/api/ecommerce/costs/recents")
                 .contentType(MediaType.APPLICATION_JSON));
 
-        // Verify the result
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].costId", is(equalTo(1))))
@@ -209,23 +195,21 @@ class ECommerceControllerMvcTest {
 
     @Test
     void testGetMarkingCostSum() throws Exception {
-        // Mock data
+
         BigDecimal costSum = BigDecimal.valueOf(150.0);
 
         when(marketingCostService.getMarketingCostSum()).thenReturn(costSum);
 
-        // act
         ResultActions result = mockMvc.perform(get("/api/ecommerce/costs/sum")
                 .contentType(MediaType.APPLICATION_JSON));
 
-        // Verify the result
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$", is(equalTo(150.0))));
     }
 
     @Test
     void testGetBalanceWeeklyRecap() throws Exception {
-        // Mock data
+
         List<BalanceWeeklyRecap> balanceWeeklyRecaps = Arrays.asList(
                 new BalanceWeeklyRecap("Week1", BigDecimal.valueOf(1000.0), 500.0, 500.0)
 
@@ -233,11 +217,9 @@ class ECommerceControllerMvcTest {
 
         when(eCommerceService.getBalanceWeeklyRecap()).thenReturn(balanceWeeklyRecaps);
 
-        // act
         ResultActions result = mockMvc.perform(get("/api/ecommerce/balance/weekly-recap")
                 .contentType(MediaType.APPLICATION_JSON));
 
-        // Verify the result
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].weekId", is(equalTo("Week1"))))
@@ -253,18 +235,16 @@ class ECommerceControllerMvcTest {
 
         when(eCommerceService.getBalance()).thenReturn(totalBalance);
 
-        // act
         ResultActions result = mockMvc.perform(get("/api/ecommerce/balance")
                 .contentType(MediaType.APPLICATION_JSON));
 
-        // Verify the result
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$", is(equalTo(5000.0))));
     }
 
     @Test
     void testGetOrdersByLatestOrderWeek() throws Exception {
-        // Mock data
+
         ECommerceDashboardCard dashboardCard = new ECommerceDashboardCard();
         OrderCard orderCard = new OrderCard();
         orderCard.setLatestWeekPercentageChange(100);
@@ -274,11 +254,9 @@ class ECommerceControllerMvcTest {
         when(ordersService.getTotalOrderCount()).thenReturn(100L);
         when(ordersService.getOrderLatestWeekPercentageChange()).thenReturn(10.0);
 
-        // act
         ResultActions result = mockMvc.perform(get("/api/ecommerce/dashboard-cards")
                 .contentType(MediaType.APPLICATION_JSON));
 
-        // Verify the result
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$.orderCard.totalOrderCount", is(equalTo(100))))
                 .andExpect(jsonPath("$.orderCard.latestWeekPercentageChange", is(equalTo(10.0))));

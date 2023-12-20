@@ -57,171 +57,148 @@ class ECommerceControllerTest {
 
     @Test
     void testGetAllShippingFees() {
-        // Arrange
+
         List<ShippingFeesMart> expectedShippingFees = Arrays.asList(createSampleShippingFeesMart(),
                 createSampleShippingFeesMart());
         when(eCommerceService.getAllShippingFees()).thenReturn(expectedShippingFees);
 
-        // Act
         List<ShippingFeesMart> result = eCommerceController.getAllShippingFees();
 
-        // Assert
         assertEquals(expectedShippingFees, result);
     }
 
     @Test
     void testGetAllOrders() {
-        // Arrange
+
         List<Order> expectedOrders = Arrays.asList(createSampleOrder(), createSampleOrder());
         when(ordersService.getAllOrders()).thenReturn(expectedOrders);
 
-        // Act
         ResponseEntity<List<Order>> result = eCommerceController.getAllOrders();
 
-        // Assert
         assertEquals(expectedOrders, result.getBody());
         assertEquals(200, result.getStatusCode().value());
     }
 
     @Test
     void testGetOrders() {
-        // Arrange
+
         List<OrderSummary> expectedOrderSummary = Arrays.asList(createSampleOrderSummary(), createSampleOrderSummary());
         when(ordersService.getRecentOrders()).thenReturn(expectedOrderSummary);
 
-        // Act
         ResponseEntity<List<OrderSummary>> result = eCommerceController.getOrders();
 
-        // Assert
         assertEquals(expectedOrderSummary, result.getBody());
         assertEquals(200, result.getStatusCode().value());
     }
 
     @Test
     void testGetAllOrdersByDate() {
-        // Arrange
+
         List<OrderPriceByDate> expectedOrderPriceByDates = Arrays.asList(new OrderPriceByDate(),
                 new OrderPriceByDate());
         when(ordersService.getAllOrderGroupedByDate()).thenReturn(expectedOrderPriceByDates);
 
-        // Act
         ResponseEntity<List<OrderPriceByDate>> result = eCommerceController.getAllOrdersByDate();
 
-        // Assert
         assertEquals(expectedOrderPriceByDates, result.getBody());
         assertEquals(200, result.getStatusCode().value());
     }
 
     @Test
     void testGetSaleRecapByWeek() {
-        // Arrange
 
         List<SalesWeeklyRecap> expectedSalesWeeklyRecap = Arrays.asList(
                 createSampleSalesRecap("Week-1", BigDecimal.valueOf(100.0)),
                 createSampleSalesRecap("Week-3", BigDecimal.valueOf(300.0)));
         when(ordersService.getWeeklySaleRecaps(4)).thenReturn(expectedSalesWeeklyRecap);
 
-        // Act
         ResponseEntity<List<SalesWeeklyRecap>> result = eCommerceController.getSaleRecapByWeek();
 
-        // Assert
         assertEquals(expectedSalesWeeklyRecap, result.getBody());
         assertEquals(200, result.getStatusCode().value());
     }
 
     @Test
     void testGetMarketingCosts() {
-        // Arrange
+
         List<MarketingCost> expectedMarketingCosts = Arrays.asList(new MarketingCost(), new MarketingCost());
         when(marketingCostService.getAll()).thenReturn(expectedMarketingCosts);
 
-        // Act
         ResponseEntity<List<MarketingCost>> result = eCommerceController.getMarketingCosts();
 
-        // Assert
         assertEquals(expectedMarketingCosts, result.getBody());
         assertEquals(200, result.getStatusCode().value());
     }
 
     @Test
     void testGetMarketingCostsGroupedByCategories() {
-        // Arrange
+
         Map<String, List<CategoryCost>> expectedCategoryCosts = new HashMap<>();
         expectedCategoryCosts.put("categories", Arrays.asList(new CategoryCost(), new CategoryCost()));
         expectedCategoryCosts.put("subcategories", Arrays.asList(new CategoryCost(), new CategoryCost()));
         when(marketingCostService.getTotalsByAllCategories()).thenReturn(expectedCategoryCosts);
 
-        // Act
         ResponseEntity<Map<String, List<CategoryCost>>> result = eCommerceController
                 .getMarketingCostsGroupedByCategories();
 
-        // Assert
         assertEquals(expectedCategoryCosts, result.getBody());
         assertEquals(200, result.getStatusCode().value());
     }
 
     @Test
     void testGetRecentCost() {
-        // Arrange
+
         List<MarketingCostRecap> expectedMarketingCostRecap = Arrays.asList(new MarketingCostRecap(),
                 new MarketingCostRecap());
         when(marketingCostService.getRecentCost()).thenReturn(expectedMarketingCostRecap);
 
-        // Act
         ResponseEntity<List<MarketingCostRecap>> result = eCommerceController.getRecentCost();
 
-        // Assert
         assertEquals(expectedMarketingCostRecap, result.getBody());
         assertEquals(200, result.getStatusCode().value());
     }
 
     @Test
     void testGetMarkingCostSum() {
-        // Arrange
+
         BigDecimal expectedSum = new BigDecimal("100.50");
         when(marketingCostService.getMarketingCostSum()).thenReturn(expectedSum);
 
-        // Act
         ResponseEntity<BigDecimal> result = eCommerceController.getMarkingCostSum();
 
-        // Assert
         assertEquals(expectedSum, result.getBody());
         assertEquals(200, result.getStatusCode().value());
     }
 
     @Test
     void testGetBalanceWeeklyRecap() {
-        // Arrange
+
         List<BalanceWeeklyRecap> expectedBalanceWeeklyRecap = Arrays.asList(
                 new BalanceWeeklyRecap("W-3", new BigDecimal("50.00"), 30.00, 20.00),
                 new BalanceWeeklyRecap("W-5", new BigDecimal("10.00"), 40.00, 10.00));
         when(eCommerceService.getBalanceWeeklyRecap()).thenReturn(expectedBalanceWeeklyRecap);
 
-        // Act
         ResponseEntity<List<BalanceWeeklyRecap>> result = eCommerceController.getBalanceWeeklyRecap();
 
-        // Assert
         assertEquals(expectedBalanceWeeklyRecap, result.getBody());
         assertEquals(200, result.getStatusCode().value());
     }
 
     @Test
     void testGetTotalBalance() {
-        // Arrange
+
         BigDecimal expectedTotalBalance = new BigDecimal("500.75");
         when(eCommerceService.getBalance()).thenReturn(expectedTotalBalance);
 
-        // Act
         ResponseEntity<BigDecimal> result = eCommerceController.getTotalBalance();
 
-        // Assert
         assertEquals(expectedTotalBalance, result.getBody());
         assertEquals(200, result.getStatusCode().value());
     }
 
     @Test
     void testGetOrdersByLatestOrderWeek() {
-        // Arrange
+
         ECommerceDashboardCard expectedDashboardCard = new ECommerceDashboardCard();
         OrderCard orderCard = new OrderCard();
         orderCard.setTotalOrderCount(10L);
@@ -231,10 +208,8 @@ class ECommerceControllerTest {
         when(ordersService.getTotalOrderCount()).thenReturn(10L);
         when(ordersService.getOrderLatestWeekPercentageChange()).thenReturn(5.0);
 
-        // Act
         ResponseEntity<ECommerceDashboardCard> result = eCommerceController.getOrdersByLatestOrderWeek();
 
-        // Assert
         assertEquals(expectedDashboardCard, result.getBody());
         assertEquals(200, result.getStatusCode().value());
     }

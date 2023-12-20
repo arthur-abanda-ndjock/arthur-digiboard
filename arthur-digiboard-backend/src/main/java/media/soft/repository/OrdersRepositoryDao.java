@@ -84,7 +84,7 @@ public class OrdersRepositoryDao {
             return namedJdbcTemplate.queryForObject(sql, paramMap, new OrderRowMapper());
 
         } catch (EmptyResultDataAccessException e) {
-            throw new CustomNotFoundException("no object with id " + orderId + "was found in the database");
+            throw new CustomNotFoundException("no object with id " + orderId + " was found in the database");
         } catch (IncorrectResultSizeDataAccessException e) {
             throw new CustomNotFoundException("More than one users with the same Id" + orderId);
         }
