@@ -9,11 +9,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import media.soft.error.CustomNotFoundException;
 import media.soft.model.Order;
 import media.soft.model.OrderStatus;
 import media.soft.model.OrderSummary;
@@ -69,6 +72,22 @@ public class OrdersRepositoryDao {
     public List<Order> getAll() {
         String sql = "SELECT * FROM Orders";
         return namedJdbcTemplate.query(sql, new OrderRowMapper());
+    }
+
+    public Order getOrderById(int orderId) {
+        try {
+            String sql = "SELECT * from Orders where OrderID = :id";
+
+            MapSqlParameterSource paramMap = new MapSqlParameterSource()
+                    .addValue("id", orderId);
+
+            return namedJdbcTemplate.queryForObject(sql, paramMap, new OrderRowMapper());
+
+        } catch (EmptyResultDataAccessException e) {
+            throw new CustomNotFoundException("no object with id " + orderId + "was found in the database");
+        } catch (IncorrectResultSizeDataAccessException e) {
+            throw new CustomNotFoundException("More than one users with the same Id" + orderId);
+        }
     }
 
     public List<OrderSummary> getRecentOrders() {
