@@ -81,7 +81,7 @@ class ECommerceControllerTest {
 
         // Assert
         assertEquals(expectedOrders, result.getBody());
-        assertEquals(200, result.getStatusCodeValue());
+        assertEquals(200, result.getStatusCode());
     }
 
     @Test
@@ -95,7 +95,7 @@ class ECommerceControllerTest {
 
         // Assert
         assertEquals(expectedOrderSummary, result.getBody());
-        assertEquals(200, result.getStatusCodeValue());
+        assertEquals(200, result.getStatusCode());
     }
 
     @Test
@@ -110,7 +110,7 @@ class ECommerceControllerTest {
 
         // Assert
         assertEquals(expectedOrderPriceByDates, result.getBody());
-        assertEquals(200, result.getStatusCodeValue());
+        assertEquals(200, result.getStatusCode());
     }
 
     @Test
@@ -127,7 +127,7 @@ class ECommerceControllerTest {
 
         // Assert
         assertEquals(expectedSalesWeeklyRecap, result.getBody());
-        assertEquals(200, result.getStatusCodeValue());
+        assertEquals(200, result.getStatusCode());
     }
 
     @Test
@@ -141,7 +141,7 @@ class ECommerceControllerTest {
 
         // Assert
         assertEquals(expectedMarketingCosts, result.getBody());
-        assertEquals(200, result.getStatusCodeValue());
+        assertEquals(200, result.getStatusCode());
     }
 
     @Test
@@ -158,7 +158,7 @@ class ECommerceControllerTest {
 
         // Assert
         assertEquals(expectedCategoryCosts, result.getBody());
-        assertEquals(200, result.getStatusCodeValue());
+        assertEquals(200, result.getStatusCode());
     }
 
     @Test
@@ -173,7 +173,7 @@ class ECommerceControllerTest {
 
         // Assert
         assertEquals(expectedMarketingCostRecap, result.getBody());
-        assertEquals(200, result.getStatusCodeValue());
+        assertEquals(200, result.getStatusCode());
     }
 
     @Test
@@ -187,7 +187,7 @@ class ECommerceControllerTest {
 
         // Assert
         assertEquals(expectedSum, result.getBody());
-        assertEquals(200, result.getStatusCodeValue());
+        assertEquals(200, result.getStatusCode());
     }
 
     @Test
@@ -203,7 +203,7 @@ class ECommerceControllerTest {
 
         // Assert
         assertEquals(expectedBalanceWeeklyRecap, result.getBody());
-        assertEquals(200, result.getStatusCodeValue());
+        assertEquals(200, result.getStatusCode());
     }
 
     @Test
@@ -217,7 +217,7 @@ class ECommerceControllerTest {
 
         // Assert
         assertEquals(expectedTotalBalance, result.getBody());
-        assertEquals(200, result.getStatusCodeValue());
+        assertEquals(200, result.getStatusCode());
     }
 
     @Test
@@ -237,7 +237,7 @@ class ECommerceControllerTest {
 
         // Assert
         assertEquals(expectedDashboardCard, result.getBody());
-        assertEquals(200, result.getStatusCodeValue());
+        assertEquals(200, result.getStatusCode());
     }
 
     private ShippingFeesMart createSampleShippingFeesMart() {
