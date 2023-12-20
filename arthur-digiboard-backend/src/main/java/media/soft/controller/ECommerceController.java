@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,6 +39,7 @@ public class ECommerceController {
 	public static final String API_PREFIX = "/api/ecommerce";
 	public static final String SHIPPING = "/shippingfees";
 	public static final String ORDERS = "/orders";
+	public static final String ORDERS_BY_ID = ORDERS + "/{id}";
 	public static final String ORDERS_SMR_RCT = ORDERS + "/summary/recents";
 	public static final String ORDERS_BY_DATE = ORDERS + "/by-date";
 	public static final String ORDERS_WK_SALES = ORDERS + "/weekly-sales";
@@ -71,6 +73,11 @@ public class ECommerceController {
 	@GetMapping(value = ORDERS, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Order>> getAllOrders() {
 		return new ResponseEntity<>(ordersService.getAllOrders(), HttpStatusCode.valueOf(200));
+	}
+
+	@GetMapping(value = ORDERS_BY_ID, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Order> getOrders(@PathVariable Integer id) {
+		return new ResponseEntity<>(ordersService.getOrderById(id), HttpStatusCode.valueOf(200));
 	}
 
 	@GetMapping(value = ORDERS_SMR_RCT, produces = MediaType.APPLICATION_JSON_VALUE)

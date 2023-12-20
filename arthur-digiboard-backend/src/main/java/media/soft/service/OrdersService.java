@@ -156,6 +156,10 @@ public class OrdersService {
         return ordersRepositoryDao.getAll();
     }
 
+    public Order getOrderById(int orderId) {
+        return ordersRepositoryDao.getOrderById(orderId);
+    }
+
     public BigDecimal getOrderAmountSum() {
         return ordersRepositoryDao.getOrderAmountSum();
     }
