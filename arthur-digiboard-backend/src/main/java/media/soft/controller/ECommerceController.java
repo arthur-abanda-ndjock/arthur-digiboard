@@ -30,8 +30,25 @@ import media.soft.service.MarketingCostService;
 import media.soft.service.OrdersService;
 
 @RestController
-@RequestMapping("/api/ecommerce")
+// @RequestMapping("/api/ecommerce")
+@RequestMapping(ECommerceController.API_PREFIX)
 public class ECommerceController {
+
+	// request paths
+	public static final String API_PREFIX = "/api/ecommerce";
+	public static final String SHIPPING = "/shippingfees";
+	public static final String ORDERS = "/orders";
+	public static final String ORDERS_SMR_RCT = ORDERS + "/summary/recents";
+	public static final String ORDERS_BY_DATE = ORDERS + "/by-date";
+	public static final String ORDERS_WK_SALES = ORDERS + "/weekly-sales";
+	public static final String COSTS = "/costs";
+	public static final String COSTS_ALL = COSTS + "/all";
+	public static final String COSTS_CAT = COSTS + "/categories";
+	public static final String COSTS_RECENT = COSTS + "/recents";
+	public static final String COSTS_SUM = COSTS + "/sum";
+	public static final String BALANCE = "/balance";
+	public static final String BALANCE_WK_RECAP = BALANCE + "/weekly-recap";
+	public static final String DASHBOARD_CARDS = "/dashboard-cards";
 
 	Logger logger = LoggerFactory.getLogger(ECommerceController.class);
 
@@ -46,68 +63,68 @@ public class ECommerceController {
 		this.marketingCostService = marketingCostService;
 	}
 
-	@GetMapping(value = "/shippingfees", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = SHIPPING, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ShippingFeesMart> getAllShippingFees() {
 		return eCommerceService.getAllShippingFees();
 	}
 
-	@GetMapping(value = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = ORDERS, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Order>> getAllOrders() {
 		return new ResponseEntity<>(ordersService.getAllOrders(), HttpStatusCode.valueOf(200));
 	}
 
-	@GetMapping(value = "/orders/summary/recents", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = ORDERS_SMR_RCT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<OrderSummary>> getOrders() {
 		return new ResponseEntity<>(ordersService.getRecentOrders(), HttpStatusCode.valueOf(200));
 	}
 
-	@GetMapping(value = "/orders/by-date", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = ORDERS_BY_DATE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<OrderPriceByDate>> getAllOrdersByDate() {
 
 		List<OrderPriceByDate> orderPriceByDates = ordersService.getAllOrderGroupedByDate();
 		return new ResponseEntity<>(orderPriceByDates, HttpStatusCode.valueOf(200));
 	}
 
-	@GetMapping(value = "/orders/weekly-sales", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = ORDERS_WK_SALES, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<SalesWeeklyRecap>> getSaleRecapByWeek() {
 
 		List<SalesWeeklyRecap> sales = ordersService.getWeeklySaleRecaps(4);
 		return new ResponseEntity<>(sales, HttpStatusCode.valueOf(200));
 	}
 
-	@GetMapping(value = "/costs/all", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = COSTS_ALL, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<MarketingCost>> getMarketingCosts() {
 
 		List<MarketingCost> sales = marketingCostService.getAll();
 		return new ResponseEntity<>(sales, HttpStatusCode.valueOf(200));
 	}
 
-	@GetMapping(value = "/costs/categories", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = COSTS_CAT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, List<CategoryCost>>> getMarketingCostsGroupedByCategories() {
 		return new ResponseEntity<>(marketingCostService.getTotalsByAllCategories(), HttpStatusCode.valueOf(200));
 	}
 
-	@GetMapping(value = "/costs/recents", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = COSTS_RECENT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<MarketingCostRecap>> getRecentCost() {
 		return new ResponseEntity<>(marketingCostService.getRecentCost(), HttpStatusCode.valueOf(200));
 	}
 
-	@GetMapping(value = "/costs/sum", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = COSTS_SUM, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<BigDecimal> getMarkingCostSum() {
 		return new ResponseEntity<>(marketingCostService.getMarketingCostSum(), HttpStatusCode.valueOf(200));
 	}
 
-	@GetMapping(value = "/balance/weekly-recap", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<BalanceWeeklyRecap>> getBalanceWeeklyRecap() {
-		return new ResponseEntity<>(eCommerceService.getBalanceWeeklyRecap(), HttpStatusCode.valueOf(200));
-	}
-
-	@GetMapping(value = "/balance", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = BALANCE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<BigDecimal> getTotalBalance() {
 		return new ResponseEntity<>(eCommerceService.getBalance(), HttpStatusCode.valueOf(200));
 	}
 
-	@GetMapping(value = "/dashboard-cards", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = BALANCE_WK_RECAP, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<BalanceWeeklyRecap>> getBalanceWeeklyRecap() {
+		return new ResponseEntity<>(eCommerceService.getBalanceWeeklyRecap(), HttpStatusCode.valueOf(200));
+	}
+
+	@GetMapping(value = DASHBOARD_CARDS, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ECommerceDashboardCard> getOrdersByLatestOrderWeek() {
 		ECommerceDashboardCard dashboardCard = new ECommerceDashboardCard();
 
