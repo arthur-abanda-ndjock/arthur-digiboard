@@ -74,6 +74,11 @@ public class OrdersRepositoryDao {
         return namedJdbcTemplate.query(sql, new OrderRowMapper());
     }
 
+    public void deleteAll() {
+        String sql = "DELETE FROM Orders";
+        namedJdbcTemplate.update(sql, new MapSqlParameterSource());
+    }
+
     public Order getOrderById(int orderId) {
         try {
             String sql = "SELECT * from Orders where OrderID = :id";

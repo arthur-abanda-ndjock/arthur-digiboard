@@ -1,4 +1,4 @@
-package media.soft;
+package media.soft.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -9,14 +9,14 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 
 import io.restassured.RestAssured;
-import media.soft.controller.ECommerceController;
+import media.soft.Application;
 
 @SpringBootTest(classes = Application.class, webEnvironment = WebEnvironment.RANDOM_PORT)
-class AppIntegrationTest {
+class ECommerceControllerIntegrationTest {
 
         @LocalServerPort
         private int port;
-        private String localhost = "http://localhost:";
+        private final String localhost = "http://localhost:";
 
         @Test
         void givenNothing_WhenAccessHome_thenSuccess() {

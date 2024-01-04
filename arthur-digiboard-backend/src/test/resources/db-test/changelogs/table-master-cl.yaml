@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - include:
+      file: classpath:/db/changelogs/tables/PrdCustomers.sql
+  - include:
+      file: classpath:/db/changelogs/tables/PrdSoftwareApplications.sql
+  - include:
+      file: classpath:/db/changelogs/tables/PrdEBooks.sql
+  - include:
+      file: classpath:/db/changelogs/tables/PrdDigitalMusic.sql
+  - include:
+      file: classpath:/db/changelogs/tables/PrdOnlineCourses.sql
+  - include:
+      file: classpath:/db/changelogs/tables/PrdStreamingServices.sql
+  - include:
+      file: classpath:/db/changelogs/tables/Orders.sql
+  - include:
+      file: classpath:/db/changelogs/tables/ShippingFeesMart.sql
+  - include:
+      file: classpath:/db/changelogs/tables/DigitalMarketingCategories.sql
+  - include:
+      file: classpath:/db/changelogs/tables/DigitalMarketingSubcategories.sql
+  - include:
+      file: classpath:/db/changelogs/tables/MarketingCosts.sql
