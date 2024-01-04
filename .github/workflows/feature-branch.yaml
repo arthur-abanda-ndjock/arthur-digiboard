@@ -4,7 +4,6 @@ on:
   push:
     branches: ["feature**"]
 
-
 permissions:
   id-token: write
   actions: read
@@ -13,7 +12,7 @@ permissions:
   checks: write
   issues: write
   pull-requests: write
-    
+
 jobs:
   build_branch:
     runs-on: ubuntu-latest
@@ -24,26 +23,25 @@ jobs:
     steps:
       # A- Set up runner
       - name: checkout on the workdir
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Set up JDK 17 
-        uses: actions/setup-java@v3
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
         with:
-          java-version: "17"
+          java-version: "21"
           distribution: "temurin"
           cache: maven
 
       - name: Get node_modules cache
         uses: actions/cache@v3.0.2
-        id: node_modules_cache 
+        id: node_modules_cache
         with:
           path: "**/node_modules **/next/cache"
           key: ${{ runner.os }}-node_modules_cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node_modules_cache-
-      
 
-      # B- build artifact    
+      # B- build artifact
       - name: build artifact
         run: mvn -B package
       # C- Generate and publish test report for java artifact
@@ -67,20 +65,20 @@ jobs:
           minimum_coverage: 80
           fail_below_threshold: false
           publish_only_summary: false
-        
+
       # Publish Coverage Job Summary  # Optional
       - name: Add Coverage Job Summary
         run: echo "${{ steps.jacoco_reporter.outputs.coverageSummary }}" >> $GITHUB_STEP_SUMMARY
-          
+
       # uploads the coverage-report.md artifact  # Optional
       - name: Upload Code Coverage Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: code-coverage-report-markdown
           path: |
-           */coverage-results.md 
-          retention-days: 1 
-      
+            */coverage-results.md
+          retention-days: 1
+
       - name: Publish Sonarlint Results
         uses: jwgmeligmeyling/spotbugs-github-action@v1.2
         with:
@@ -93,12 +91,12 @@ jobs:
           name: Spotbugs
           path: build/reports/spotbugs/*.xml
 
-      # D- build and scan docker image  
+      # D- build and scan docker image
       - name: Build and tag docker temp
         run: |
           docker build -t ${{env.REPOSITORY_NAME}}-temp:${{env.IMAGE_TAG}} .
 
-      ### disabling scan    
+      ### disabling scan
       - name: Run Snyk to check Docker image for vulnerabilities
         id: snyk_scan
         continue-on-error: true
