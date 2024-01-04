@@ -15,6 +15,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import media.soft.model.BalanceWeeklyRecap;
 import media.soft.model.CategoryCost;
 import media.soft.model.ECommerceDashboardCard;
@@ -30,8 +36,8 @@ import media.soft.service.ECommerceService;
 import media.soft.service.MarketingCostService;
 import media.soft.service.OrdersService;
 
+@Tag(name = "ECommerce", description = "ECommerce APIs")
 @RestController
-// @RequestMapping("/api/ecommerce")
 @RequestMapping(ECommerceController.API_PREFIX)
 public class ECommerceController {
 
@@ -70,11 +76,25 @@ public class ECommerceController {
 		return eCommerceService.getAllShippingFees();
 	}
 
+	@Operation(summary = "Retrieve all the orders", description = "Retrieve all the orders. the response is a list of the 'order' objects", tags = {
+			"orders", "get", "list" })
+	@ApiResponses({
+			@ApiResponse(responseCode = "200", content = {
+					@Content(schema = @Schema(implementation = Order.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 	@GetMapping(value = ORDERS, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Order>> getAllOrders() {
 		return new ResponseEntity<>(ordersService.getAllOrders(), HttpStatusCode.valueOf(200));
 	}
 
+	@Operation(summary = "Retrieve an order by id", description = "Retrieve an order by id. the response is an 'order' object, using the id", tags = {
+			"orders", "get", "list" })
+	@ApiResponses({
+			@ApiResponse(responseCode = "200", content = {
+					@Content(schema = @Schema(implementation = Order.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 	@GetMapping(value = ORDERS_BY_ID, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Order> getOrders(@PathVariable Integer id) {
 		return new ResponseEntity<>(ordersService.getOrderById(id), HttpStatusCode.valueOf(200));
