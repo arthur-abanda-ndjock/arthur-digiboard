@@ -4,7 +4,8 @@ target/
 **/src/main/**/target/
 **/src/test/**/target/
 
-
+### Docker file (it is generated automatically during the build)  ###
+Dockerfile
 
 
 ##### NextJs #####

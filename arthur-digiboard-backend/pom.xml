@@ -18,6 +18,7 @@
 		<maven.compiler.target>17</maven.compiler.target>
 		<jacoco.version>0.8.11</jacoco.version>
 		<testcontainers.version>1.17.6</testcontainers.version>
+		<activeProfile>local</activeProfile>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -158,6 +159,44 @@
 									<filtering>false</filtering>
 								</resource>
 							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>filter-dockerfile</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.basedir}/..</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}</directory>
+									<filtering>true</filtering>
+									<includes>
+										<include>Dockerfile.template</include>
+									</includes>
+								</resource>
+							</resources>
+							<overwrite>true</overwrite>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.coderplus.maven.plugins</groupId>
+				<artifactId>copy-rename-maven-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<id>rename-dockerfile</id>
+						<phase>package</phase>
+						<goals>
+							<goal>rename</goal>
+						</goals>
+						<configuration>
+							<sourceFile>${project.basedir}/../Dockerfile.template</sourceFile>
+							<destinationFile>${project.basedir}/../Dockerfile</destinationFile>
 						</configuration>
 					</execution>
 				</executions>
