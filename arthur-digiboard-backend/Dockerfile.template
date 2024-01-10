@@ -27,4 +27,4 @@ COPY ./arthur-digiboard-backend/target/arthur-digiboard.jar /usr/local/cross-sof
 
 EXPOSE 8080
 
-ENTRYPOINT ["/usr/bin/dumb-init", "--", "java", "-jar", "/usr/local/cross-soft/arthur-digiboard.jar", "--spring.profiles.active=local"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--", "java", "-jar", "/usr/local/cross-soft/arthur-digiboard.jar", "--spring.profiles.active=@activeProfile@"]

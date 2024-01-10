@@ -1,3 +1,4 @@
+# start
 spring:
   datasource:
     url: jdbc:hsqldb:mem:myDb
@@ -17,3 +18,4 @@ springdoc:
     operationsSorter: method
     tagsSorter: alpha
     filter: true
+# end
