@@ -2,10 +2,9 @@ name: Main branch workflow
 
 on:
   pull_request: # only pull request
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
-    
 permissions:
   id-token: write # This is required for requesting the JWT
   actions: read
@@ -27,14 +26,14 @@ jobs:
       - name: checkout on the workdir
         uses: actions/checkout@v3
 
-      - name: Set up JDK 17 
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: "17"
           distribution: "temurin"
       - name: Get node_modules cache
         uses: actions/cache@v3.0.2
-        id: node_modules_cache 
+        id: node_modules_cache
         with:
           path: "**/node_modules **/next/cache"
           key: ${{ runner.os }}-node_modules_cache-${{ hashFiles('**/package-lock.json') }}
@@ -49,7 +48,7 @@ jobs:
           # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
 
-      # B- build artifact    
+      # B- build artifact
       - name: build artifact
         run: mvn -B package
 
@@ -78,15 +77,15 @@ jobs:
       # Publish Coverage Job Summary  # Optional
       - name: Add Coverage Job Summary
         run: echo "${{ steps.jacoco_reporter.outputs.coverageSummary }}" >> $GITHUB_STEP_SUMMARY
-        
+
       # uploads the coverage-report.md artifact  # Optional
       - name: Upload Code Coverage Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: code-coverage-report-markdown
           path: |
-            */coverage-results.md 
-          retention-days: 1 
+            */coverage-results.md
+          retention-days: 1
 
       - name: Publish Sonarlint Results
         uses: jwgmeligmeyling/spotbugs-github-action@v1.2
@@ -98,40 +97,40 @@ jobs:
         uses: jwgmeligmeyling/spotbugs-github-action@v1.2
         with:
           name: Spotbugs
-          path: build/reports/spotbugs/*.xml      
-        
-      # C- build and scan docker image 
+          path: build/reports/spotbugs/*.xml
+
+      # C- build and scan docker image
       - name: Build and tag docker temp
         run: |
           docker build -t ${{env.REPOSITORY_NAME}}-temp:${{ env.IMAGE_TAG}} .
 
-      ### disabling scan    
-      # - name: Run Snyk to check Docker image for vulnerabilities
-      #   id: snyk_scan
-      #   continue-on-error: true
-      #   uses: snyk/actions/docker@master
-      #   env:
-      #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      #   with:
-      #     image: ${{env.REPOSITORY_NAME}}-temp:${{ env.IMAGE_TAG}}
-      #     args: --file=Dockerfile --severity-threshold=high
+      ## disabling scan
+      - name: Run Snyk to check Docker image for vulnerabilities
+        id: snyk_scan
+        continue-on-error: true
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: ${{env.REPOSITORY_NAME}}-temp:${{ env.IMAGE_TAG}}
+          args: --file=Dockerfile --severity-threshold=high
 
-      # - name: Upload result to GitHub Code Scanning
-      #   uses: github/codeql-action/upload-sarif@v2
-      #   with:
-      #     sarif_file: snyk.sarif
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
 
-      # - name: Snyk Scan Result Check
-      #   if: ${{ steps.snyk_scan.outcome == 'failure' }}
-      #   run: |
-      #     echo "::error file={name},line={line},endLine={endLine},title={title}::{message}"
-      #     exit 1
+      - name: Snyk Scan Result Check
+        if: ${{ steps.snyk_scan.outcome == 'failure' }}
+        run: |
+          echo "::error file={name},line={line},endLine={endLine},title={title}::{message}"
+          exit 1
 
       - name: Login to Amazon ECR service
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
         with:
-          mask-password: 'false'
+          mask-password: "false"
 
       - name: Push docker image to Amazon ECR
         env:
@@ -144,14 +143,14 @@ jobs:
       #   env:
       #     snyk_scan_result_outcome: ${{ steps.snyk_scan.outcome }}
       #     snyk_scan_result_conclusion: ${{ steps.snyk_scan.conclusion }}
-      #   run: echo "1 -> $snyk_scan_result_outcome \t 2 -> $snyk_scan_result_conclusion"           
+      #   run: echo "1 -> $snyk_scan_result_outcome \t 2 -> $snyk_scan_result_conclusion"
       # - name: Set up Docker Buildx
       #   id: buildx
       #   uses: docker/setup-buildx-action@master
 
       # - name: Cache Docker layers
       #   uses: actions/cache@v3.0.2
-      #   id: docker_images_cache  
+      #   id: docker_images_cache
       #   with:
       #     path: /tmp/.buildx-cache
       #     key: ${{ runner.os }}-docker-buildx-${{ github.sha }}
@@ -167,7 +166,7 @@ jobs:
       #     tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.REPOSITORY_NAME }}:${{ env.IMAGE_TAG }}
       #     cache-from: type=local,src=/tmp/.buildx-cache
       #     cache-to: type=local,dest=/tmp/.buildx-cache-new
-          
+
       # - name: Move cache
       #   run: |
       #     rm -rf /tmp/.buildx-cache
@@ -187,11 +186,9 @@ jobs:
       # - name: Update kube config to set name & region & role
       #   run: aws eks update-kubeconfig --name tf-cluster --region us-east-2
 
-
       # - name: Deploy app using helm
       #   run: |
       #     helm upgrade --install --wait --timeout 5m0s digiboard-chart ./helm-charts/digiboard-chart
-
 
       # - name: Deploy postgress db
       #   run: |

@@ -1,0 +1,13 @@
+# digiboard-parent-chart/Chart.yaml
+
+apiVersion: v2
+name: digiboard-parent-chart
+description: Chart for the application (including app & db charts)
+version: 0.1.1
+dependencies:
+  - name: db-postgres-chart
+    version: 0.1.1
+    repository: "file://./db-postgres-chart"
+  - name: digiboard-chart
+    version: 0.1.0
+    repository: "file://./digiboard-chart"

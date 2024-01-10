@@ -8,6 +8,9 @@ target/
 ### Docker file (it is generated automatically during the build)  ###
 Dockerfile
 
+## Helm charts
+helm-charts/**/**.tgz
+**/**/**.tgz
 
 ##### NextJs #####
 # Node.js
