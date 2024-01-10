@@ -1,3 +1,4 @@
 #image: arthur2023/digiboard:1.3
 #image: 755840619199.dkr.ecr.us-east-2.amazonaws.com/digiboard:latest
-image: arthur2023/digiboard:1.5
+
+image: arthur2023/arthur-digiboard:1.5
