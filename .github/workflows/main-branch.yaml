@@ -102,9 +102,9 @@ jobs:
       # C- build and scan docker image
       - name: Build and tag docker temp
         run: |
-          docker build -t ${{env.REPOSITORY_NAME}}-temp:${{ env.IMAGE_TAG}} .
+          docker build -t ${{env.REPOSITORY_NAME}}-temp:${{env.IMAGE_TAG}} .
 
-      ## disabling scan
+      ## scan docker image for vulnerabilities
       - name: Run Snyk to check Docker image for vulnerabilities
         id: snyk_scan
         continue-on-error: true
@@ -112,7 +112,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: ${{env.REPOSITORY_NAME}}-temp:${{ env.IMAGE_TAG}}
+          image: ${{env.REPOSITORY_NAME}}-temp:${{env.IMAGE_TAG}}
           args: --file=Dockerfile --severity-threshold=high
 
       - name: Upload result to GitHub Code Scanning
@@ -177,18 +177,25 @@ jobs:
       #   env:
       #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-      # - name: Install kubectl
-      #   uses: azure/setup-kubectl@v2.0
-      #   with:
-      #     version: 'v1.27.0'
-      #   id: install
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v2.0
+        with:
+          version: "v1.27.0"
+        id: install
 
-      # - name: Update kube config to set name & region & role
-      #   run: aws eks update-kubeconfig --name tf-cluster --region us-east-2
+      - name: Update kube config to set name & region & role
+        run: aws eks update-kubeconfig --name tf-cluster --region us-east-2
 
-      # - name: Deploy app using helm
-      #   run: |
-      #     helm upgrade --install --wait --timeout 5m0s digiboard-chart ./helm-charts/digiboard-chart
+      - name: update helm dependencies
+        run: |
+          cd ./helm-charts/ 
+          helm dependency build
+          cd ..
+          echo "helm dependencies completed"
+
+      - name: Deploy application using helm
+        run: |
+          helm upgrade --install --wait --timeout 5m0s digiboard-application-chart .\helm-charts\
 
       # - name: Deploy postgress db
       #   run: |
