@@ -96,7 +96,7 @@ jobs:
         run: |
           docker build -t ${{env.REPOSITORY_NAME}}-temp:${{env.IMAGE_TAG}} .
 
-      ### disabling scan
+      ## scan docker image for vulnerabilities
       - name: Run Snyk to check Docker image for vulnerabilities
         id: snyk_scan
         continue-on-error: true
