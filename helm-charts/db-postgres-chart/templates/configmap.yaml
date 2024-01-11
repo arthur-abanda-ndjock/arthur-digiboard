@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: postgres-config
-  namespace: digiboard_ns
+  namespace: digiboard-ns
   labels:
     app: postgres
 data:

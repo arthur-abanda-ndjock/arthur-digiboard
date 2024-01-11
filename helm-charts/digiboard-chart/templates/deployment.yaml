@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: digiboard
-  namespace: digiboard_ns
+  namespace: digiboard-ns
 spec:
   replicas: 1
   strategy:
