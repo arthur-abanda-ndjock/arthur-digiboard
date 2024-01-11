@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: digiboard
+  namespace: digiboard-ns
 spec:
   replicas: 1
   strategy:
@@ -15,12 +16,12 @@ spec:
         app: digiboard
     spec:
       containers:
-      - name: digiboard
-        image: {{ .Values.image }}       
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8080
-        # readinessProbe:
-        #   httpGet:
-        #    path: /
-        #    port: 8080
+        - name: digiboard
+          image: { { .Values.image } }
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          # readinessProbe:
+          #   httpGet:
+          #    path: /
+          #    port: 8080

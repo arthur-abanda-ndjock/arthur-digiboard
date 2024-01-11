@@ -2,10 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: digiboard
+  namespace: digiboard-ns
 spec:
   selector:
     app: digiboard
   ports:
-  - port: 8080
-    targetPort: 8080
+    - port: 8080
+      targetPort: 8080
   type: LoadBalancer

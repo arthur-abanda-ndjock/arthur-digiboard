@@ -50,6 +50,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: postgres-pv-volume # Sets PV's name
+  namespace: digiboard-ns
   labels:
     type: local # Sets PV's type to local
     app: postgres
