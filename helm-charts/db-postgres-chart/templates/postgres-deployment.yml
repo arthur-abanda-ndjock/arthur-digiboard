@@ -90,6 +90,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres # Sets Deployment name
+  namespace: digiboard_ns
 spec:
   replicas: 1
   selector:
