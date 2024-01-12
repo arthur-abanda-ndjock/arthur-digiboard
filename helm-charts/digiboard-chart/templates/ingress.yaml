@@ -1,7 +1,6 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  namespace: digiboard-ns
   name: my-ingress
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
