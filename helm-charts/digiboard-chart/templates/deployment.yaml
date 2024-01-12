@@ -17,7 +17,8 @@ spec:
     spec:
       containers:
         - name: digiboard
-          image: { { .Values.image } }
+          # image: { { .Values.image } }
+          image: 755840619199.dkr.ecr.us-east-2.amazonaws.com/digiboard:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
