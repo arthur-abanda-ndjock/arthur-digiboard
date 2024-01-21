@@ -50,7 +50,8 @@ jobs:
 
       # B- build artifact
       - name: build artifact
-        run: mvn -B package
+        #        run: mvn -B package
+        run: mvn clean package  -DactiveProfile=uat
 
       # C- Generate and publish test report for java artifact
       - name: Publish java test Results

@@ -3,5 +3,5 @@ databaseChangeLog:
       file: classpath:/db/changelogs/table-master-cl.yaml
 #  - include:
 #      file: classpath:/db/changelogs/stored-proc-master-cl.yaml
-# - include:
-#     file: classpath:/db/changelogs/script-master-cl.yaml
+  - include:
+      file: classpath:/db/changelogs/script-master-cl.yaml

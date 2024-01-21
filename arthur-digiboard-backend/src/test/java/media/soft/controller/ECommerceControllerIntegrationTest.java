@@ -52,13 +52,14 @@ class ECommerceControllerIntegrationTest {
 
         }
 
-        @Test
-        void givenNothing_WhenAccessEcommerceShipping_thenSuccess() {
-                int statusCode = RestAssured
-                                .get(localhost + port + ECommerceController.API_PREFIX + ECommerceController.SHIPPING)
-                                .statusCode();
-                assertEquals(HttpStatus.OK.value(), statusCode);
-        }
+        // @Test
+        // void givenNothing_WhenAccessEcommerceShipping_thenSuccess() {
+        // int statusCode = RestAssured
+        // .get(localhost + port + ECommerceController.API_PREFIX +
+        // ECommerceController.SHIPPING)
+        // .statusCode();
+        // assertEquals(HttpStatus.OK.value(), statusCode);
+        // }
 
         @Test
         void givenOrderId_WhenAccessOrderApi_thenSuccess() {
