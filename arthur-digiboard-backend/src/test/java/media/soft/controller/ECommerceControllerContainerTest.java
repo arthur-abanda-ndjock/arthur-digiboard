@@ -86,7 +86,8 @@ public class ECommerceControllerContainerTest {
 
     @Test
     void givenTableIsFed_WhenGetAll_ThenCountIsNonZero() {
-
+        ordersRepositoryDao.deleteAll();
+        customersRepositoryDao.deleteAll();
         // seeding the database
         this.getSampleCustomers().stream().forEach(customersRepositoryDao::insert);
         this.getSampleOrders().stream().forEach(ordersRepositoryDao::insert);

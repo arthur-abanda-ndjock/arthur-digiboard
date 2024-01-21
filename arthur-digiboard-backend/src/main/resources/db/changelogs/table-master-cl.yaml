@@ -13,8 +13,8 @@ databaseChangeLog:
       file: classpath:/db/changelogs/tables/PrdStreamingServices.sql
   - include:
       file: classpath:/db/changelogs/tables/Orders.sql
-  - include:
-      file: classpath:/db/changelogs/tables/ShippingFeesMart.sql
+  #   - include:
+  #       file: classpath:/db/changelogs/tables/ShippingFeesMart.sql
   - include:
       file: classpath:/db/changelogs/tables/DigitalMarketingCategories.sql
   - include:

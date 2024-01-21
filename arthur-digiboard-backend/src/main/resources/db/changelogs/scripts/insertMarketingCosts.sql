@@ -76,10 +76,10 @@ INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (74, 1, 4.15, '2023-11-13'),
 (75, 1, 3.68, '2023-11-14'),
 (76, 1, 2.33, '2023-11-15'),
-(77, 1, 4.86, '2023-11-16');
+(77, 1, 4.86, '2023-11-16'),
 
 -- Batch Insert Statements for subcategory_id 2
-INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
+-- INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (78, 2, 2.10, '2023-09-01'),
 (79, 2, 1.45, '2023-09-02'),
 (80, 2, 2.25, '2023-09-03'),
@@ -156,10 +156,10 @@ INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (151, 2, 1.45, '2023-11-13'),
 (152, 2, 2.25, '2023-11-14'),
 (153, 2, 2.65, '2023-11-15'),
-(154, 2, 1.30, '2023-11-16');
+(154, 2, 1.30, '2023-11-16'),
 
 -- Batch Insert Statements for subcategory_id 3
-INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
+-- INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (155, 3, 0.40, '2023-09-01'),
 (156, 3, 1.20, '2023-09-02'),
 (157, 3, 0.60, '2023-09-03'),
@@ -236,11 +236,11 @@ INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (228, 3, 1.10, '2023-11-13'),
 (229, 3, 0.80, '2023-11-14'),
 (230, 3, 1.00, '2023-11-15'),
-(231, 3, 0.90, '2023-11-16');
+(231, 3, 0.90, '2023-11-16'),
 
 
 -- Batch Insert Statements for subcategory_id 4
-INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
+-- INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (232, 4, 3.40, '2023-09-01'),
 (233, 4, 4.10, '2023-09-02'),
 (234, 4, 2.90, '2023-09-03'),
@@ -317,10 +317,10 @@ INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (305, 4, 2.90, '2023-11-13'),
 (306, 4, 3.70, '2023-11-14'),
 (307, 4, 4.00, '2023-11-15'),
-(308, 4, 3.20, '2023-11-16');
+(308, 4, 3.20, '2023-11-16'),
 
 -- Batch Insert Statements for subcategory_id 5
-INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
+-- INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (309, 5, 0.40, '2023-09-01'),
 (310, 5, 0.80, '2023-09-02'),
 (311, 5, 0.60, '2023-09-03'),
@@ -397,11 +397,11 @@ INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (382, 5, 0.66, '2023-11-13'),
 (383, 5, 0.93, '2023-11-14'),
 (384, 5, 0.74, '2023-11-15'),
-(385, 5, 0.34, '2023-11-16');
+(385, 5, 0.34, '2023-11-16'),
 
 
 -- Batch Insert Statements for subcategory_id 6
-INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
+-- INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (386, 6, 2.36, '2023-09-01'),
 (387, 6, 1.92, '2023-09-02'),
 (388, 6, 3.14, '2023-09-03'),
@@ -478,10 +478,10 @@ INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (459, 6, 1.78, '2023-11-13'),
 (460, 6, 3.29, '2023-11-14'),
 (461, 6, 2.07, '2023-11-15'),
-(462, 6, 1.89, '2023-11-16');
+(462, 6, 1.89, '2023-11-16'),
 
 -- Batch Insert Statements for subcategory_id 7
-INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
+-- INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (463, 7, 4.22, '2023-09-01'),
 (464, 7, 3.75, '2023-09-02'),
 (465, 7, 4.56, '2023-09-03'),
@@ -558,11 +558,11 @@ INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (536, 7, 4.33, '2023-11-13'),
 (537, 7, 3.46, '2023-11-14'),
 (538, 7, 4.07, '2023-11-15'),
-(539, 7, 3.72, '2023-11-16');
+(539, 7, 3.72, '2023-11-16'),
 
 
 -- Batch Insert Statements for subcategory_id 8
-INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
+-- INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (540, 8, 3.54, '2023-09-01'),
 (541, 8, 2.68, '2023-09-02'),
 (542, 8, 3.13, '2023-09-03'),
@@ -639,10 +639,10 @@ INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (613, 8, 2.98, '2023-11-13'),
 (614, 8, 3.11, '2023-11-14'),
 (615, 8, 3.34, '2023-11-15'),
-(616, 8, 3.79, '2023-11-16');
+(616, 8, 3.79, '2023-11-16'),
 
 -- Batch Insert Statements for subcategory_id 9
-INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
+-- INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (617, 9, 2.17, '2023-09-01'),
 (618, 9, 2.83, '2023-09-02'),
 (619, 9, 2.26, '2023-09-03'),
@@ -719,10 +719,10 @@ INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (690, 9, 2.56, '2023-11-13'),
 (691, 9, 2.03, '2023-11-14'),
 (692, 9, 1.69, '2023-11-15'),
-(693, 9, 2.44, '2023-11-16');
+(693, 9, 2.44, '2023-11-16'),
 
 -- Batch Insert Statements for subcategory_id 10
-INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
+-- INSERT INTO MarketingCosts (id, subcategory_id, cost, date_recorded) VALUES
 (694, 10, 0.95, '2023-09-01'),
 (695, 10, 1.20, '2023-09-02'),
 (696, 10, 1.35, '2023-09-03'),

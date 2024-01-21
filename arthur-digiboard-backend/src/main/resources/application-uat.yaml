@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:postgresql://postgres:5432/postgresdb
-    driver-class-name: org.postgresql.Driver
-    username: admin
-    password: psltest
+    url: jdbc:mysql://mydb.cigqf7ww5ksf.us-east-2.rds.amazonaws.com:3306/digiboard_db?createDatabaseIfNotExist=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: xxxx
+    password: xxxx
   liquibase:
     change-log: classpath:/db/changelogs/master-cl.yaml
 

@@ -1,5 +1,5 @@
 CREATE TABLE ShippingFeesMart (
     id INT PRIMARY KEY,
-    totalDailyFees DECIMAL,
+    totalDailyFees DECIMAL(10, 2),
     asofdate TIMESTAMP
 );
