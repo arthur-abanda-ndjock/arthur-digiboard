@@ -196,7 +196,7 @@ jobs:
 
       - name: Deploy application using helm
         run: |
-          helm upgrade --install --wait --timeout 10m0s digiboard-application-chart ./helm-charts/
+          helm upgrade --install --wait --timeout 20m0s digiboard-application-chart ./helm-charts/
 
       # - name: Deploy postgress db
       #   run: |
