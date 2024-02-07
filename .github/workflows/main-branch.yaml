@@ -140,44 +140,6 @@ jobs:
           docker tag ${{env.REPOSITORY_NAME}}-temp:${{ env.IMAGE_TAG}} $REGISTRY/${{env.REPOSITORY_NAME}}:${{env.IMAGE_TAG}}
           docker push $REGISTRY/${{env.REPOSITORY_NAME}}:${{env.IMAGE_TAG}}
 
-      # - name: result snyk scan
-      #   env:
-      #     snyk_scan_result_outcome: ${{ steps.snyk_scan.outcome }}
-      #     snyk_scan_result_conclusion: ${{ steps.snyk_scan.conclusion }}
-      #   run: echo "1 -> $snyk_scan_result_outcome \t 2 -> $snyk_scan_result_conclusion"
-      # - name: Set up Docker Buildx
-      #   id: buildx
-      #   uses: docker/setup-buildx-action@master
-
-      # - name: Cache Docker layers
-      #   uses: actions/cache@v3.0.2
-      #   id: docker_images_cache
-      #   with:
-      #     path: /tmp/.buildx-cache
-      #     key: ${{ runner.os }}-docker-buildx-${{ github.sha }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-docker-buildx-
-
-      # - name: Build, tag & push Docker image
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: .
-      #     builder: ${{ steps.buildx.outputs.name }}
-      #     push: true
-      #     tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.REPOSITORY_NAME }}:${{ env.IMAGE_TAG }}
-      #     cache-from: type=local,src=/tmp/.buildx-cache
-      #     cache-to: type=local,dest=/tmp/.buildx-cache-new
-
-      # - name: Move cache
-      #   run: |
-      #     rm -rf /tmp/.buildx-cache
-      #     mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-
-      # - name: Run Snyk to check for vulnerabilities
-      #   uses: snyk/actions/maven@master
-      #   env:
-      #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
       - name: Install kubectl
         uses: Azure/setup-kubectl@v3.2
         # with:
