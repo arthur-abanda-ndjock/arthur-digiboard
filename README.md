@@ -1,11 +1,11 @@
 # Digiboard: demo fullstack app (Java + React) with Github Actions CI/CD pipeline
 
-[Introduction](#Introduction)
-[Quick start](#quick-start)
-[Github Actions CI/CD pipeline](#github-actions-ci-cd-pipeline)
-[App structure](#App-structure)
-[Frontend](#Frontend)
-[Backend](#Backend)
+1. [Introduction](#Introduction)
+2. [Quick start](#quick-start)
+3. [Github Actions CI/CD pipeline](#github-actions-ci-cd-pipeline)
+4. [App structure](#App-structure)
+   - [Frontend](#Frontend)
+   - [Backend](#Backend)
 
 ## Introduction
 
