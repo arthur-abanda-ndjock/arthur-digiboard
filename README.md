@@ -1,8 +1,8 @@
 # Digiboard: demo fullstack app (Java + React) with Github Actions CI/CD pipeline
 
-[Introduction] (#Introduction)
-[Quick start] (#Quick-start)
-[Github Actions CI/CD pipeline] (#Github-Actions-CI-CD-pipeline)
+[Introduction](#Introduction)
+[Quick start](#quick-start)
+[Github Actions CI/CD pipeline](#github-actions-ci-cd-pipeline)
 [App structure](#App-structure)
 [Frontend](#Frontend)
 [Backend](#Backend)
@@ -21,14 +21,14 @@ In order to run the project locally, kindly follow these steps:
     git clone https://github.com/arthur-abanda-ndjock/arthur-digiboard.git
    ```
 
-2. move inside the root folder, build it using maven and run it as a spring boot app
+2. move inside the root folder, build using maven and run it as a spring boot app
 
    ```
     mvn clean package
     java -jar .\arthur-digiboard-backend\target\arthur-digiboard.jar --spring.profiles.active=local
    ```
 
-3. ![[Optional]] if you have a docker environment, you can build an image and run it as container.
+3. (Optional) if you have a docker environment, you can build an image and run it as container.
 
    ```
     docker build -t <<YOUR_DOCKER_REPO>>/digiboard:1.5 .
