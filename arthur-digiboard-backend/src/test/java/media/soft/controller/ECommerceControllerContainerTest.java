@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,7 @@ import media.soft.repository.PrdCustomersRepositoryDao;
 
 @Testcontainers
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@Disabled("a Docker environment is necessary to run this testcase, hence test must be skipped when building locally")
 public class ECommerceControllerContainerTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ECommerceControllerContainerTest.class);

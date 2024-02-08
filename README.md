@@ -13,6 +13,11 @@ This demo project features a fullstack app, built as an single artifact and read
 
 ## Quick start
 
+In order to run the project locally, kindly follow these steps:
+
+1. checkout the project from the repo
+2. checkout
+
 ## Github Actions CI CD pipeline
 
 ## App structure
