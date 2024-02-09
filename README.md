@@ -76,7 +76,7 @@ Once the PR is merged, the main branch's [workflow](.github/workflows/main-branc
 
 ### Infrastructure
 
-The target infrastructure where the app is running is AWS where all the necessary elements (VPC, subnets, EKS-cluster, ECR and RDS, etc...) are provisioned in [this](https://duckduckgo.com) separate terraform project.
+The target infrastructure of the app is AWS where all the necessary elements (VPC, subnets, EKS-cluster, ECR and RDS, etc...) are provisioned in [this](https://github.com/arthur-abanda-ndjock/arthur-digiboard-terraform) separate terraform project.
 
 ## App structure
 
