@@ -10,6 +10,9 @@
 4. [App structure](#App-structure)
    - [Frontend](#Frontend)
    - [Backend](#Backend)
+   - [Datasources](#datasources)
+   - [Dockerizing the app](#dockerizing-the-app)
+   - [Tests](#tests)
 
 ## Introduction
 
@@ -41,6 +44,8 @@ In order to run the project locally, kindly follow these steps:
     docker push <<YOUR_DOCKER_REPO>>/digiboard:1.5
     docker run -p 8080:8080 <<YOUR_DOCKER_REPO>>/digiboard:1.5
    ```
+
+[Back to top](#digiboard-demo-fullstack-app-java--react-with-github-actions-cicd-pipeline)
 
 ## Github Actions CI CD pipeline
 
@@ -74,16 +79,54 @@ Once the PR is merged, the main branch's [workflow](.github/workflows/main-branc
 7. connect to the present aws EKS cluster
 8. Fetch the image from aws ECR and deploy it to EKS cluster
 
+[Back to top](#digiboard-demo-fullstack-app-java--react-with-github-actions-cicd-pipeline)
+
 ### Infrastructure
 
-The target infrastructure of the app is AWS where all the necessary elements (VPC, subnets, EKS-cluster, ECR and RDS, etc...) are provisioned in [this](https://github.com/arthur-abanda-ndjock/arthur-digiboard-terraform) separate terraform project.
+The target infrastructure for the app is AWS. All the necessary elements (VPC, subnets, EKS-cluster, ECR and RDS, etc...) are provisioned in [this](https://github.com/arthur-abanda-ndjock/arthur-digiboard-terraform) separate terraform project.
 
 ## App structure
 
-### Frontend
+![App structure](assets/app-structure.png)
 
-### Backend
+The app is built as single deployable artifact bundling both front- and back-ends.
 
-```
+### Frontend:
 
-```
+Frontend is built using React and NextJs and communicate to the backend REST API.
+
+### Backend:
+
+Backend is build with Spring boot and the typical RestController-Service-Repo structure.
+
+### Datasources:
+
+there is various datasources depending on the environments the app is running to:
+
+- In-memory database (for _local_ environment)
+- Local postgresql k8s cluster database (for _dev_ environment)
+- AWS RDS database (for _uat_ environment in the cloud)
+
+Details are found in [this](arthur-digiboard-backend/src/main/resources) folder, inside the `application-*.yaml` file
+
+### Dockerizing the app
+
+In order to make sure that the right docker image deployable to the right infra, the final DockerFile is generated during the build from a [DockerFile template](arthur-digiboard-backend/Dockerfile.template). Subsequently a deployable docker image can be generated for the local environment, another one for a dev environment,
+another one for a uat environment, etc.
+
+The generated DockerFile is written to make the docker container as light and as secure as possible:
+
+- using a safe minimum sized base image (regularly scanned by Snyk)
+- using a dumb initializer
+- creating & granting least priviledge to specific os user (instead of user the default root), to run the process
+- specify the environment/profile the process should run in/with.
+
+### Tests:
+
+The backend code is covered in about 90% by tests. Those included are:
+
+- Unit tests (for Controllers, services and repositories)
+- some integration tests with the default spring boot
+- some docker-supported integration tests
+
+[Back to top](#digiboard-demo-fullstack-app-java--react-with-github-actions-cicd-pipeline)
