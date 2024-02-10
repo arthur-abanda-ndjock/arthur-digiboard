@@ -13,6 +13,7 @@
    - [Datasources](#datasources)
    - [Dockerizing the app](#dockerizing-the-app)
    - [Tests](#tests)
+5. [Next]
 
 ## Introduction
 
@@ -45,7 +46,7 @@ In order to run the project locally, kindly follow these steps:
     docker run -p 8080:8080 <<YOUR_DOCKER_REPO>>/digiboard:1.5
    ```
 
-[Back to top](#digiboard-demo-fullstack-app-java--react-with-github-actions-cicd-pipeline)
+[Back to the top](#digiboard-demo-fullstack-app-java--react-with-github-actions-cicd-pipeline)
 
 ## Github Actions CI CD pipeline
 
@@ -79,7 +80,7 @@ Once the PR is merged, the main branch's [workflow](.github/workflows/main-branc
 7. connect to the present aws EKS cluster
 8. Fetch the image from aws ECR and deploy it to EKS cluster
 
-[Back to top](#digiboard-demo-fullstack-app-java--react-with-github-actions-cicd-pipeline)
+[Back to the top](#digiboard-demo-fullstack-app-java--react-with-github-actions-cicd-pipeline)
 
 ### Infrastructure
 
@@ -106,8 +107,9 @@ there is various datasources depending on the environments the app is running to
 - In-memory database (for _local_ environment)
 - Local postgresql k8s cluster database (for _dev_ environment)
 - AWS RDS database (for _uat_ environment in the cloud)
+  Details are found in [this](arthur-digiboard-backend/src/main/resources) folder, inside the `application-*.yaml` file
 
-Details are found in [this](arthur-digiboard-backend/src/main/resources) folder, inside the `application-*.yaml` file
+Liquibase is used mainly to track & maintain the schema and init state of the DB consistent accross many of those datasources. The liquibase root config is found in the [master changelog](arthur-digiboard-backend/src/test/resources/db-test/changelogs/master-cl.yaml) file, separating configuration for table creation & modification, scripts and stored procedures
 
 ### Dockerizing the app
 
@@ -127,6 +129,33 @@ The backend code is covered in about 90% by tests. Those included are:
 
 - Unit tests (for Controllers, services and repositories)
 - some integration tests with the default spring boot
-- some docker-supported integration tests
+- some docker-supported integration tests (disabled by default)
 
-[Back to top](#digiboard-demo-fullstack-app-java--react-with-github-actions-cicd-pipeline)
+[Back to the top](#digiboard-demo-fullstack-app-java--react-with-github-actions-cicd-pipeline)
+
+## Next
+
+Following of the next steps for the app:
+
+##### New Features
+
+- Extending the API to covers all functionalities hard coded on the frontend
+- Introducing new and extendables editable tables on the frontend for better CRUD operations
+- Introducing reporting capabilities for the dashboard
+
+##### Security
+
+- Improving authentification by using/improving passwordless communication with the various datasources.
+- Setting SSL/TLS communication up between the app and the various datasources.
+
+##### Monitoring
+
+- Adding Promotheus to monitor various aspects of the k8s cluster (such as Service discovery & monitoring, metrics collection and exposure, alert/notification ect...)
+- Adding Grafana to integrate with Promotheus, visualize its metrics using customized dashboards
+
+##### Web
+
+- Adding External-DNS and an internet domain
+- setting up HTTPS and SSL redirect during traffic
+
+[Back to the top](#digiboard-demo-fullstack-app-java--react-with-github-actions-cicd-pipeline)
